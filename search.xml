@@ -10,15 +10,17 @@
       <tags>
         <tag>Controller</tag>
         <tag>Velocity</tag>
+        <tag>Cookie</tag>
+        <tag>Session</tag>
+        <tag>IOC</tag>
+        <tag>DI</tag>
         <tag>AOP</tag>
-        <tag>Cookie&amp;Session</tag>
-        <tag>IOC&amp;DI</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[使用Typora插入图片CSDN同步hexo]]></title>
     <url>%2F2019%2F05%2F14%2Fusetupian%2F</url>
-    <content type="text"><![CDATA[1.根目录下面的_config.yml叫做站点配置文件，把_config.yml中的post_asset_folder设置为true。 2.安装图片插件，npm install hexo-asset-image –save。 3.运行hexo n “images3”在/source/_posts下生成images3.md，同时生成images3文件夹。#4.用火狐抓取要同步的CSDN博客5.用Typora打开images3，编辑–&gt;图片工具–&gt;全局图像设置，图片插入按下图设置。 /images3表示在source目录下，./images3表示在/source/_posts目录下。6.复制抓取到的html到Typora，会自动保存图片到/source/_posts/images3目录下 图片格式为:! [img] (images3/图片名.png)保存后如果页面的html语句是&lt;img src=”2019/05/14/images3/图片名.png”就ok了]]></content>
+    <content type="text"><![CDATA[1.根目录下面的_config.yml叫做站点配置文件，把_config.yml中的post_asset_folder设置为true。 2.安装图片插件，npm install hexo-asset-image –save。 3.运行hexo n “images3”在/source/_posts下生成images3.md，同时生成images3文件夹。4.用火狐抓取要同步的CSDN博客5.用Typora打开images3，编辑–&gt;图片工具–&gt;全局图像设置，图片插入按下图设置。 /images3表示在source目录下，./images3表示在/source/_posts目录下。6.复制抓取到的html到Typora，会自动保存图片到/source/_posts/images3目录下 图片格式为:! [img] (images3/图片名.png)保存后如果页面的html语句是&lt;img src=”2019/05/14/images3/图片名.png”就ok了]]></content>
       <categories>
         <category>hexo</category>
       </categories>

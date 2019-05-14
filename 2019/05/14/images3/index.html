@@ -97,7 +97,7 @@
 
 
   <meta name="description" content="Controller控制器及常用注解SpringMVC中，控制器Controller负责处理由DispatcherServlet(前端控制器)分发的请求，它把用户请求的数据经过业务处理层处理之后封装成一个Model,然后再把该Model返回给对应的view进行展示。 控制器简而言之：就是接收和处理客户端的请求，spring通过注解控制器类，加载特定的控制器。 参数注解： @PathVariable">
-<meta name="keywords" content="Controller,Velocity,AOP,Cookie&amp;Session,IOC&amp;DI">
+<meta name="keywords" content="Controller,Velocity,Cookie,Session,IOC,DI,AOP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="牛客网中级项目（一）">
 <meta property="og:url" content="http://www.freeneasy.top/2019/05/14/images3/index.html">
@@ -110,7 +110,7 @@
 <meta property="og:image" content="http://www.freeneasy.top/2019/05/14/images3/20190429200114592.png">
 <meta property="og:image" content="http://www.freeneasy.top/2019/05/14/images3/20190429111825215.png">
 <meta property="og:image" content="http://www.freeneasy.top/2019/05/14/images3/20190429200502160.png">
-<meta property="og:updated_time" content="2019-05-14T14:03:01.701Z">
+<meta property="og:updated_time" content="2019-05-14T14:10:03.988Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="牛客网中级项目（一）">
 <meta name="twitter:description" content="Controller控制器及常用注解SpringMVC中，控制器Controller负责处理由DispatcherServlet(前端控制器)分发的请求，它把用户请求的数据经过业务处理层处理之后封装成一个Model,然后再把该Model返回给对应的view进行展示。 控制器简而言之：就是接收和处理客户端的请求，spring通过注解控制器类，加载特定的控制器。 参数注解： @PathVariable">
@@ -424,7 +424,7 @@
                 
               
 
-              <time title="创建时间：2019-05-14 20:57:55 / 修改时间：22:03:01" itemprop="dateCreated datePublished" datetime="2019-05-14T20:57:55+08:00">2019-05-14</time>
+              <time title="创建时间：2019-05-14 20:57:55 / 修改时间：22:10:03" itemprop="dateCreated datePublished" datetime="2019-05-14T20:57:55+08:00">2019-05-14</time>
             
 
             
@@ -509,7 +509,7 @@
 <p><strong>@CookieValue 获取指定cookie的值</strong></p>
 <p><strong>使用@RequestParam(value=”xxx”,required=false)时需要注意的问题</strong></p>
 <p>required=false：可以不传这个参数</p>
-<p>required=true：必须传这个参数</p>
+<p>required=true：必须传这个参数<br><a id="more"></a></p>
 <p>required默认值是true</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/profile/&#123;groupId&#125;/&#123;userId&#125;"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">profile</span><span class="params">(@PathVariable(<span class="string">"groupId"</span>)</span> String groupId,</span></span><br><span class="line"><span class="function">                      @<span class="title">PathVariable</span><span class="params">(<span class="string">"userId"</span>)</span> <span class="keyword">int</span> userId,</span></span><br><span class="line"><span class="function">                      @<span class="title">RequestParam</span><span class="params">(value = <span class="string">"type"</span>, defaultValue = <span class="string">"1"</span>)</span> <span class="keyword">int</span> type,</span></span><br><span class="line"><span class="function">                      @<span class="title">RequestParam</span><span class="params">(value = <span class="string">"key"</span>, defaultValue = <span class="string">"nowcoder"</span>)</span> String key) </span>&#123;</span><br><span class="line">    <span class="comment">//http://127.0.0.1:8080/profile/1/2?key=xx&amp;type=11</span></span><br><span class="line">    <span class="keyword">return</span> String.format(<span class="string">"GID&#123;%s&#125;, UID&#123;%d&#125;, TYPE&#123;%d&#125;, KEY&#123;%s&#125;"</span>, groupId, userId, type, key);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <div class="hljs-button signin" data-title="登录后复制" onclick="hljs.signin(event)">
@@ -683,11 +683,15 @@
           
             <a href="/tags/Velocity/" rel="tag"><strong><i class="fa fa-tag"></i></strong> Velocity</a>
           
+            <a href="/tags/Cookie/" rel="tag"><strong><i class="fa fa-tag"></i></strong> Cookie</a>
+          
+            <a href="/tags/Session/" rel="tag"><strong><i class="fa fa-tag"></i></strong> Session</a>
+          
+            <a href="/tags/IOC/" rel="tag"><strong><i class="fa fa-tag"></i></strong> IOC</a>
+          
+            <a href="/tags/DI/" rel="tag"><strong><i class="fa fa-tag"></i></strong> DI</a>
+          
             <a href="/tags/AOP/" rel="tag"><strong><i class="fa fa-tag"></i></strong> AOP</a>
-          
-            <a href="/tags/Cookie-Session/" rel="tag"><strong><i class="fa fa-tag"></i></strong> Cookie&Session</a>
-          
-            <a href="/tags/IOC-DI/" rel="tag"><strong><i class="fa fa-tag"></i></strong> IOC&DI</a>
           
         </div>
       
@@ -839,13 +843,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
