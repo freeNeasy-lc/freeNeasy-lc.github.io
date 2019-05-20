@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[IOC与DI]]></title>
+    <url>%2F2019%2F05%2F20%2FIOC%26DI%2F</url>
+    <content type="text"><![CDATA[原文地址：http://jinnianshilongnian.iteye.com/blog/1413846 1.IoC是什么 Ioc—Inversion of Control，即“控制反转”，不是什么技术，而是一种设计思想。在Java开发中，Ioc意味着将你设计好的对象交给容器控制，而不是传统的在你的对象内部直接控制。如何理解好Ioc呢？理解好Ioc的关键是要明确“谁控制谁，控制什么，为何是反转（有反转就应该有正转了），哪些方面反转了”，那我们来深入分析一下： ●谁控制谁，控制什么：传统Java SE程序设计，我们直接在对象内部通过new进行创建对象，是程序主动去创建依赖对象；而IoC是有专门一个容器来创建这些对象，即由Ioc容器来控制对 象的创建；谁控制谁？当然是IoC 容器控制了对象；控制什么？那就是主要控制了外部资源获取（不只是对象包括比如文件等）。 ●为何是反转，哪些方面反转了：有反转就有正转，传统应用程序是由我们自己在对象中主动控制去直接获取依赖对象，也就是正转；而反转则是由容器来帮忙创建及注入依赖对象；为何是反转？因为由容器帮我们查找及注入依赖对象，对象只是被动的接受依赖对象，所以是反转；哪些方面反转了？依赖对象的获取被反转了。 用图例说明一下，传统程序设计如图2-1，都是主动去创建相关对象然后再组合起来： 图1-1 传统应用程序示意图 当有了IoC/DI的容器后，在客户端类中不再主动去创建这些对象了，如图2-2所示: 图1-2有IoC/DI容器后程序结构示意图 2.IoC能做什么 IoC 不是一种技术，只是一种思想，一个重要的面向对象编程的法则，它能指导我们如何设计出松耦合、更优良的程序。传统应用程序都是由我们在类内部主动创建依赖对象，从而导致类与类之间高耦合，难于测试；有了IoC容器后，把创建和查找依赖对象的控制权交给了容器，由容器进行注入组合对象，所以对象与对象之间是 松散耦合，这样也方便测试，利于功能复用，更重要的是使得程序的整个体系结构变得非常灵活。 其实IoC对编程带来的最大改变不是从代码上，而是从思想上，发生了“主从换位”的变化。应用程序原本是老大，要获取什么资源都是主动出击，但是在IoC/DI思想中，应用程序就变成被动的了，被动的等待IoC容器来创建并注入它所需要的资源了。 IoC很好的体现了面向对象设计法则之一—— 好莱坞法则：“别找我们，我们找你”；即由IoC容器帮对象找相应的依赖对象并注入，而不是由对象主动去找。 3.IoC和DI DI—Dependency Injection，即“依赖注入”：组件之间依赖关系由容器在运行期决定，形象的说，即由容器动态的将某个依赖关系注入到组件之中。依赖注入的目的并非为软件系统带来更多功能，而是为了提升组件重用的频率，并为系统搭建一个灵活、可扩展的平台。通过依赖注入机制，我们只需要通过简单的配置，而无需任何代码就可指定目标需要的资源，完成自身的业务逻辑，而不需要关心具体的资源来自何处，由谁实现。 理解DI的关键是：“谁依赖谁，为什么需要依赖，谁注入谁，注入了什么”，那我们来深入分析一下： ●谁依赖于谁：当然是应用程序依赖于IoC容器； ●为什么需要依赖：**应用程序需要IoC容器来提供对象需要的外部资源**； ●谁注入谁：很明显是IoC容器注入应用程序某个对象，应用程序依赖的对象； ●注入了什么：就是注入某个对象所需要的外部资源（包括对象、资源、常量数据）。 IoC和DI由什么关系呢？其实它们是同一个概念的不同角度描述，由于控制反转概念比较含糊（可能只是理解为容器控制对象这一个层面，很难让人想到谁来维护对象关系），所以2004年大师级人物Martin Fowler又给出了一个新的名字：“依赖注入”，相对IoC 而言，“**依赖注入”明确描述了“被注入对象依赖IoC容器配置依赖对象”。**]]></content>
+      <categories>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>IOC</tag>
+        <tag>DI</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[AOP]]></title>
+    <url>%2F2019%2F05%2F20%2FAOP%2F</url>
+    <content type="text"><![CDATA[AOP其实并不难，但是作为初学者，就不那么容易理解了。这里自己遇到了一点困惑，就记录一下吧。 什么是AOP参考《Spring实战》 了解之前，先说说什么是横切关注点，什么是核心关注点。 在软件开发中，散落于应用中多处的功能被称为横切关注点。横切关注点可以被模块化为特殊的类（将那些多个类的公共部分，与业务无关，却为业务模块所共同调用的东西封装到一个可重用模块），即切面（Aspect）。 然后核心关注点，就是业务主要的功能。 Aop 的作用在于分离系统中的各种关注点，将核心关注点和横切关注点分离开来。 为什么要这样做呢？ 这样做有两个好处：首先，现在每个关注点都集中于一个地方，而不是分散到多处代码中；其次，服务模块更简洁，因为它们只包含主要关注点（或核心功能）的代码，而次要关注点的代码被转移到切面中了。 AOP相关概念传送门https://blog.csdn.net/q982151756/article/details/80513340 Aspect（切面）： Aspect 声明类似于 Java 中的类声明，在 Aspect 中会包含着一些 Pointcut 以及相应的 Advice。 Joint point（连接点）：表示在程序中明确定义的点，典型的包括方法调用，对类成员的访问以及异常处理程序块的执行等等。 Pointcut（切点）：表示一组 joint point，这些 joint point 或是通过逻辑关系组合起来，或是通过通配、正则表达式等方式集中起来，它定义了相应的 Advice 将要发生的地方。 Advice（增强）：Advice 定义了在 Pointcut 里面定义的程序点具体要做的操作，它通过 before、after 和 around 来区别是在每个 joint point 之前、之后还是代替执行的代码。 Target（目标对象）：织入 Advice 的目标对象.。 Weaving（织入）：将 Aspect 和其他对象连接起来, 并创建 Adviced object 的过程。]]></content>
+      <categories>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>AOP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[彻底解决gite clone 时 The remote end hung up unexpectedly错误]]></title>
     <url>%2F2019%2F05%2F20%2Fgit3%2F</url>
     <content type="text"><![CDATA[网上搜了很多 什么增大一下缓存，还看一下生效了没 git config http.postBuffer 524288000 git config –list 什么增加lowSpeedTime git config –global http.lowSpeedLimit 0 git config –global http.lowSpeedTime 999999 统统都没用 最后克隆的远程地址把http换做ssh就可以了 如果速度慢，可以git clone后加上–depth 1]]></content>
@@ -41,13 +64,13 @@
         <category>项目</category>
       </categories>
       <tags>
+        <tag>AOP</tag>
+        <tag>IOC</tag>
+        <tag>DI</tag>
         <tag>Controller</tag>
         <tag>Velocity</tag>
         <tag>Cookie</tag>
         <tag>Session</tag>
-        <tag>IOC</tag>
-        <tag>DI</tag>
-        <tag>AOP</tag>
       </tags>
   </entry>
   <entry>

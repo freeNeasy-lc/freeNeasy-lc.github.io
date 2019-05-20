@@ -96,13 +96,21 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="freeNeasy">
-<meta property="og:url" content="http://www.freeneasy.top/tags/Session/index.html">
+  <meta name="description" content="AOP其实并不难，但是作为初学者，就不那么容易理解了。这里自己遇到了一点困惑，就记录一下吧。 什么是AOP参考《Spring实战》 了解之前，先说说什么是横切关注点，什么是核心关注点。 在软件开发中，散落于应用中多处的功能被称为横切关注点。横切关注点可以被模块化为特殊的类（将那些多个类的公共部分，与业务无关，却为业务模块所共同调用的东西封装到一个可重用模块），即切面（Aspect）。 然后核心关注">
+<meta name="keywords" content="AOP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AOP">
+<meta property="og:url" content="http://www.freeneasy.top/2019/05/20/AOP/index.html">
 <meta property="og:site_name" content="freeNeasy">
+<meta property="og:description" content="AOP其实并不难，但是作为初学者，就不那么容易理解了。这里自己遇到了一点困惑，就记录一下吧。 什么是AOP参考《Spring实战》 了解之前，先说说什么是横切关注点，什么是核心关注点。 在软件开发中，散落于应用中多处的功能被称为横切关注点。横切关注点可以被模块化为特殊的类（将那些多个类的公共部分，与业务无关，却为业务模块所共同调用的东西封装到一个可重用模块），即切面（Aspect）。 然后核心关注">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.freeneasy.top/2019/05/20/AOP/1.png">
+<meta property="og:image" content="http://www.freeneasy.top/2019/05/20/AOP/2.png">
+<meta property="og:updated_time" content="2019-05-20T13:00:44.851Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="freeNeasy">
+<meta name="twitter:title" content="AOP">
+<meta name="twitter:description" content="AOP其实并不难，但是作为初学者，就不那么容易理解了。这里自己遇到了一点困惑，就记录一下吧。 什么是AOP参考《Spring实战》 了解之前，先说说什么是横切关注点，什么是核心关注点。 在软件开发中，散落于应用中多处的功能被称为横切关注点。横切关注点可以被模块化为特殊的类（将那些多个类的公共部分，与业务无关，却为业务模块所共同调用的东西封装到一个可重用模块），即切面（Aspect）。 然后核心关注">
+<meta name="twitter:image" content="http://www.freeneasy.top/2019/05/20/AOP/1.png">
 
 
 
@@ -110,7 +118,7 @@
 
   
   
-  <link rel="canonical" href="http://www.freeneasy.top/tags/Session/">
+  <link rel="canonical" href="http://www.freeneasy.top/2019/05/20/AOP/">
 
 
 
@@ -120,7 +128,7 @@
   };
 </script>
 
-  <title>标签: Session | freeNeasy</title>
+  <title>AOP | freeNeasy</title>
   
 
 
@@ -168,7 +176,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -244,7 +252,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -308,28 +316,6 @@
   
     
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
   
 
   
@@ -375,57 +361,304 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Session<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.freeneasy.top/2019/05/20/AOP/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="freeNeasy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="freeNeasy">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2019/05/14/images3/" itemprop="url">
-            
-              <span itemprop="name">牛客网中级项目（一）</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">AOP
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-14T20:57:55+08:00" content="2019-05-14">
-          05-14
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-20 20:51:29 / 修改时间：21:00:44" itemprop="dateCreated datePublished" datetime="2019-05-20T20:51:29+08:00">2019-05-20</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/05/20/AOP/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/20/AOP/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>AOP其实并不难，但是作为初学者，就不那么容易理解了。这里自己遇到了一点困惑，就记录一下吧。</p>
+<h1 id="什么是AOP"><a href="#什么是AOP" class="headerlink" title="什么是AOP"></a>什么是AOP</h1><p><strong>参考《Spring实战》</strong></p>
+<p>了解之前，先说说什么是横切关注点，什么是核心关注点。</p>
+<p>在软件开发中，散落于应用中多处的功能被称为横切关注点。横切关注点可以被模块化为特殊的类（将那些多个类的公共部分，与业务无关，却为业务模块所共同调用的东西封装到一个可重用模块），即切面（Aspect）。</p>
+<p>然后核心关注点，就是业务主要的功能。</p>
+<p>Aop 的作用在于分离系统中的各种关注点，将核心关注点和横切关注点分离开来。</p>
+<p>为什么要这样做呢？</p>
+<p>这样做有两个好处：首先，现在每个关注点都集中于一个地方，而不是分散到多处代码中；其次，服务模块更简<br><a id="more"></a><br>洁，因为它们只包含主要关注点（或核心功能）的代码，而次要关注点的代码被转移到切面中了。</p>
+<p><img src="//www.freeneasy.top/2019/05/20/AOP/1.png" alt="img"></p>
+<h1 id="AOP相关概念"><a href="#AOP相关概念" class="headerlink" title="AOP相关概念"></a>AOP相关概念</h1><p><strong>传送门</strong><a href="https://blog.csdn.net/q982151756/article/details/80513340" target="_blank" rel="noopener">https://blog.csdn.net/q982151756/article/details/80513340</a></p>
+<p><strong>Aspect（切面）：</strong> Aspect 声明类似于 Java 中的类声明，在 Aspect 中会包含着一些 Pointcut 以及相应的 Advice。</p>
+<p><strong>Joint point（连接点）：</strong>表示在程序中明确定义的点，典型的包括方法调用，对类成员的访问以及异常处理程序块的执行等等。</p>
+<p><strong>Pointcut（切点）：</strong>表示一组 joint point，这些 joint point 或是通过逻辑关系组合起来，或是通过通配、正则表达式等方式集中起来，它定义了相应的 Advice 将要发生的地方。</p>
+<p><strong>Advice（增强）：</strong>Advice 定义了在 Pointcut 里面定义的程序点具体要做的操作，它通过 before、after 和 around 来区别是在每个 joint point 之前、之后还是代替执行的代码。</p>
+<p><strong>Target（目标对象）：</strong>织入 Advice 的目标对象.。</p>
+<p><strong>Weaving（织入）：</strong>将 Aspect 和其他对象连接起来, 并创建 Adviced object 的过程。</p>
+<p><img src="//www.freeneasy.top/2019/05/20/AOP/2.png" alt="img"></p>
 
       
     </div>
 
+    
+
+    
+    
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/05/20/AOP/">AOP</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 freeNeasy 的个人博客">freeNeasy</a></p>
+  <p><span>发布时间:</span>2019年05月20日 - 20:05</p>
+  <p><span>最后更新:</span>2019年05月20日 - 21:05</p>
+  <p><span>原始链接:</span><a href="/2019/05/20/AOP/" title="AOP">http://www.freeneasy.top/2019/05/20/AOP/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.freeneasy.top/2019/05/20/AOP/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+	
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="freeNeasy 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.png" alt="freeNeasy 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AOP/" rel="tag"><strong><i class="fa fa-tag"></i></strong> AOP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/20/git3/" rel="next" title="彻底解决gite clone 时 The remote end hung up unexpectedly错误">
+                <i class="fa fa-chevron-left"></i> 彻底解决gite clone 时 The remote end hung up unexpectedly错误
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/20/IOC&DI/" rel="prev" title="IOC与DI">
+                IOC与DI <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
 
         </div>
         
@@ -445,8 +678,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -601,6 +843,23 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是AOP"><span class="nav-number">1.</span> <span class="nav-text">什么是AOP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AOP相关概念"><span class="nav-number">2.</span> <span class="nav-text">AOP相关概念</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
 
@@ -745,6 +1004,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
 
   
 
@@ -790,6 +1053,8 @@
 
 
 
+
+  
 
 
   
