@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[彻底解决gite clone 时 The remote end hung up unexpectedly错误]]></title>
+    <url>%2F2019%2F05%2F20%2Fgit3%2F</url>
+    <content type="text"><![CDATA[网上搜了很多 什么增大一下缓存，还看一下生效了没 git config http.postBuffer 524288000 git config –list 什么增加lowSpeedTime git config –global http.lowSpeedLimit 0 git config –global http.lowSpeedTime 999999 统统都没用 最后克隆的远程地址把http换做ssh就可以了 如果速度慢，可以git clone后加上–depth 1]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[git克隆网速差，不反应的解决方案]]></title>
+    <url>%2F2019%2F05%2F20%2Fgit2%2F</url>
+    <content type="text"><![CDATA[git clone 克隆的是所有的历史版本 解决方案： 在git clone后面加上–depth 1 ，就可以大大减少要克隆的内容了 depth 1表示只克隆最近一次的commit. 例如： $ git clone –depth 1 git@github.com:litten/hexo-theme-yilia.git git clone 克隆的是所有的历史版本 解决方案： 在git clone后面加上–depth 1 ，就可以大大减少要克隆的内容了 depth 1表示只克隆最近一次的commit. 例如： $ git clone –depth 1 git@github.com:litten/hexo-theme-yilia.git]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Git的使用]]></title>
     <url>%2F2019%2F05%2F20%2Fgit1%2F</url>
     <content type="text"><![CDATA[1.Git的结构 2.本地库和远程库2.1团队内部协作 2.2跨团队协作 3.Git命令行操作3.1本地库初始化git init git add 3.2设置签名项目级别/仓库级别：仅在当前本地库范围内有效 git config user.name tomgit config user.email goodMorning@aa.com 信息保存位置：./.git/config 文件 系统用户级别：登录当前操作系统的用户范围 git config –global user.name tomgit config –global user.email goodMorning@aa.com 3.3基本操作git status 查看工作区、暂存区状态 git add 将工作区的“新建/修改”添加到暂存区 git commit 将暂存区的内容提交到本地库 git reflog 查看历史记录 前进后退：基于索引值操作 git reset –hard[局部索引值] reset三个参数对比 –soft：仅仅在本地库移动HEAD 指针 –mixed：在本地库移动HEAD 指针，重置暂存区 –hard：在本地库移动HEAD 指针，重置暂存区和工作区 删除文件并找回 git add -&gt; git commit，将文件提交到本地库，使用git reset –hard[指针位置]，指针位置指向历史记录 git add只提交到暂存区，未提交到本地库，使用git reset –hard HEAD，指针位置使用HEAD，同时刷新工作区和暂存区。 3.4分支操作创建分支 git branch [分支名] 查看分支 git branch -v切换分支 git checkout [分支名]合并分支第一步：切换到接受修改的分支（被合并，增加新内容）上git checkout [被合并分支名] 第二步：执行merge 命令git merge [有新内容分支名] 3.5创建远程库查看当前所有远程地址别名 git remote -v 创建远程库地址别名 git remote add [别名] [远程地址] git remote add origin [远程地址] 推送 git push [别名] [分支名] git push origin [分支名] 克隆 git clone[远程地址] 克隆git仓库中的分支 git clone -b &lt;branch_name&gt; 如：git clone -b aa [远程地址] 拉取 pull = fetch + merge git fetch [远程库地址别名] [远程分支名]（fetch 抓取，fetch只是把远程库的内容下载到本地，并未改变本地工作区的文件。） git merge [远程库地址别名/远程分支名] git pull [远程库地址别名] [远程分支名] SSH登录 1.运行命令生成.ssh 密钥目录 $ ssh-keygen -t rsa -C atguigu2018ybuq@aliyun.com 2.进入.ssh 目录查看id_rsa.pub 文件内容 $ cat id_rsa.pub 3.复制id_rsa.pub 文件内容Setting -&gt; SSH keys 4.在Git bash 创建远程地址别名 git remote add origin_ssh git@github.com:atguigu2018ybuq/huashan.git]]></content>
