@@ -110,7 +110,7 @@
 <meta property="og:image" content="http://www.freeneasy.top/2019/05/14/images3/20190429200114592.png">
 <meta property="og:image" content="http://www.freeneasy.top/2019/05/14/images3/20190429111825215.png">
 <meta property="og:image" content="http://www.freeneasy.top/2019/05/14/images3/20190429200502160.png">
-<meta property="og:updated_time" content="2019-05-14T14:10:03.988Z">
+<meta property="og:updated_time" content="2019-05-20T12:25:58.609Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="牛客网中级项目（一）">
 <meta name="twitter:description" content="Controller控制器及常用注解SpringMVC中，控制器Controller负责处理由DispatcherServlet(前端控制器)分发的请求，它把用户请求的数据经过业务处理层处理之后封装成一个Model,然后再把该Model返回给对应的view进行展示。 控制器简而言之：就是接收和处理客户端的请求，spring通过注解控制器类，加载特定的控制器。 参数注解： @PathVariable">
@@ -424,12 +424,24 @@
                 
               
 
-              <time title="创建时间：2019-05-14 20:57:55 / 修改时间：22:10:03" itemprop="dateCreated datePublished" datetime="2019-05-14T20:57:55+08:00">2019-05-14</time>
+              <time title="创建时间：2019-05-14 20:57:55" itemprop="dateCreated datePublished" datetime="2019-05-14T20:57:55+08:00">2019-05-14</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-20 20:25:58" itemprop="dateModified" datetime="2019-05-20T20:25:58+08:00">2019-05-20</time>
               
             
           </span>
@@ -517,7 +529,25 @@
 
 
 <p>常用注解：</p>
-<p><strong>@Configuration把一个类作为一个IoC容器，它的某个方法头上如果注册了@Bean，就会作为这个Spring容器中的Bean。@Scope注解 作用域@Lazy(true) 表示延迟初始化@Service用于标注业务层组件、 @Controller用于标注控制层组件（如struts中的action）@Repository用于标注数据访问组件，即DAO组件。@Component泛指组件，当组件不好归类的时候，我们可以使用这个注解进行标注。@Scope用于指定scope作用域的（用在类上）@PostConstruct用于指定初始化方法（用在方法上）@PreDestory用于指定销毁方法（用在方法上）@DependsOn：定义Bean初始化及销毁时的顺序@Primary：自动装配时当出现多个Bean候选者时，被注解为@Primary的Bean将作为首选者，否则将抛出异常@Autowired 默认按类型装配，如果我们想使用按名称装配，可以结合@Qualifier注解一起使用。如下：@Autowired @Qualifier(“personDaoBean”) 存在多个实例配合使用@Resource默认按名称装配，当找不到与名称匹配的bean才会按类型装配。@PostConstruct 初始化注解@PreDestroy 摧毁注解 默认 单例  启动就加载@Async异步方法调用</strong></p>
+<p><strong>@Configuration把一个类作为一个IoC容器，它的某个方法头上如果注册了</strong></p>
+<p><strong>@Bean，就会作为这个Spring容器中的Bean。</strong></p>
+<p><strong>@Scope注解 作用域</strong></p>
+<p><strong>@Lazy(true) 表示延迟初始化</strong></p>
+<p><strong>@Service用于标注业务层组件</strong> </p>
+<p><strong>@Controller用于标注控制层组件（如struts中的action）</strong></p>
+<p><strong>@Repository用于标注数据访问组件，即DAO组件。</strong></p>
+<p><strong>@Component泛指组件，当组件不好归类的时候，我们可以使用这个注解进行标注。</strong></p>
+<p><strong>@Scope用于指定scope作用域的（用在类上）</strong></p>
+<p><strong>@PostConstruct用于指定初始化方法（用在方法上）</strong></p>
+<p><strong>@PreDestory用于指定销毁方法（用在方法上）</strong></p>
+<p><strong>@DependsOn：定义Bean初始化及销毁时的顺序</strong></p>
+<p><strong>@Primary：自动装配时当出现多个Bean候选者时，被注解为@Primary的Bean将作为首选者，否则将抛出异常</strong></p>
+<p><strong>@Autowired 默认按类型装配，如果我们想使用按名称装配，可以结合@Qualifier注解一起使用。如下：</strong></p>
+<p><strong>@Autowired @Qualifier(“personDaoBean”) 存在多个实例配合使用</strong></p>
+<p><strong>@Resource默认按名称装配，当找不到与名称匹配的bean才会按类型装配。</strong></p>
+<p><strong>@PostConstruct 初始化注解</strong></p>
+<p><strong>@PreDestroy 摧毁注解 默认 单例  启动就加载</strong></p>
+<p><strong>@Async异步方法调用</strong></p>
 <h1 id="Velocity模板语言"><a href="#Velocity模板语言" class="headerlink" title="Velocity模板语言"></a>Velocity模板语言</h1><p>为什么要使用模板语言？</p>
 <p>在服务器端可以使用Velocity处理模板和生成的动态内容（html，xml等）。和 JSP 技术的目标非常接近。但是，JSP 模型可以毫无阻碍地访问底层的 Servlet API 和 Java 编程语言。它基本上是一种在很大程度上开放的访问模型。</p>
 <p>而作为一种完全自包含的模板引擎和脚本解释器，Velocity 拥有完全封闭的模型。任何针对系统和/或 Java 编程语言的访问都必须明确地启用。默认情况，Velocity 模板中不能访问 Java 编程语言的任何方面。这种封闭的模型使 Velocity 能够提供分离的模板表示层，与任何应用程序业务逻辑或者数据管理代码清晰地划分开。从而保证了网页的长期可维护性。</p>
@@ -610,7 +640,7 @@
   <p><span>本文标题:</span><a href="/2019/05/14/images3/">牛客网中级项目（一）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 freeNeasy 的个人博客">freeNeasy</a></p>
   <p><span>发布时间:</span>2019年05月14日 - 20:05</p>
-  <p><span>最后更新:</span>2019年05月14日 - 22:05</p>
+  <p><span>最后更新:</span>2019年05月20日 - 20:05</p>
   <p><span>原始链接:</span><a href="/2019/05/14/images3/" title="牛客网中级项目（一）">http://www.freeneasy.top/2019/05/14/images3/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.freeneasy.top/2019/05/14/images3/" aria-label="复制成功！"></i></span>
   </p>
