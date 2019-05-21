@@ -96,21 +96,20 @@
 
 
 
-  <meta name="description" content="@responseBody注解的作用是将controller的方法返回的对象通过适当的转换器转换为指定的格式之后，写入到response对象的body区，通常用来返回JSON数据或者是XML数据，需要注意的呢，在使用此注解之后不会再走视图处理器，而是直接将数据写入到输入流中，他的效果等同于通过response对象输出指定格式的数据。 12345678910111213　  @RequestMapp">
-<meta name="keywords" content="ResponseBody,RequestMapping">
+  <meta name="description" content="MyBatis集成在application.properties增加spring配置数据库链接地址 12345678spring.datasource.url=jdbc:mysql://localhost:3306/toutiao?useUnicode=true&amp;amp;amp;characterEncoding=utf8&amp;amp;amp;useSSL=falsespring.datasource">
+<meta name="keywords" content="MyBatis,Mapper注解,XML配置,ViewObject,DateTool">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ResponseBody详解">
-<meta property="og:url" content="http://www.freeneasy.top/2019/05/21/ResponseBody/index.html">
+<meta property="og:title" content="牛客网中级项目（二）">
+<meta property="og:url" content="http://www.freeneasy.top/2019/05/21/NewCoder2/index.html">
 <meta property="og:site_name" content="freeNeasy">
-<meta property="og:description" content="@responseBody注解的作用是将controller的方法返回的对象通过适当的转换器转换为指定的格式之后，写入到response对象的body区，通常用来返回JSON数据或者是XML数据，需要注意的呢，在使用此注解之后不会再走视图处理器，而是直接将数据写入到输入流中，他的效果等同于通过response对象输出指定格式的数据。 12345678910111213　  @RequestMapp">
+<meta property="og:description" content="MyBatis集成在application.properties增加spring配置数据库链接地址 12345678spring.datasource.url=jdbc:mysql://localhost:3306/toutiao?useUnicode=true&amp;amp;amp;characterEncoding=utf8&amp;amp;amp;useSSL=falsespring.datasource">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://www.freeneasy.top/2019/05/21/ResponseBody/1.png">
-<meta property="og:image" content="http://www.freeneasy.top/2019/05/21/ResponseBody/2.png">
-<meta property="og:updated_time" content="2019-05-21T03:17:14.795Z">
+<meta property="og:image" content="http://www.freeneasy.top/2019/05/21/NewCoder2/1.png">
+<meta property="og:updated_time" content="2019-05-21T03:14:43.465Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ResponseBody详解">
-<meta name="twitter:description" content="@responseBody注解的作用是将controller的方法返回的对象通过适当的转换器转换为指定的格式之后，写入到response对象的body区，通常用来返回JSON数据或者是XML数据，需要注意的呢，在使用此注解之后不会再走视图处理器，而是直接将数据写入到输入流中，他的效果等同于通过response对象输出指定格式的数据。 12345678910111213　  @RequestMapp">
-<meta name="twitter:image" content="http://www.freeneasy.top/2019/05/21/ResponseBody/1.png">
+<meta name="twitter:title" content="牛客网中级项目（二）">
+<meta name="twitter:description" content="MyBatis集成在application.properties增加spring配置数据库链接地址 12345678spring.datasource.url=jdbc:mysql://localhost:3306/toutiao?useUnicode=true&amp;amp;amp;characterEncoding=utf8&amp;amp;amp;useSSL=falsespring.datasource">
+<meta name="twitter:image" content="http://www.freeneasy.top/2019/05/21/NewCoder2/1.png">
 
 
 
@@ -118,7 +117,7 @@
 
   
   
-  <link rel="canonical" href="http://www.freeneasy.top/2019/05/21/ResponseBody/">
+  <link rel="canonical" href="http://www.freeneasy.top/2019/05/21/NewCoder2/">
 
 
 
@@ -128,7 +127,7 @@
   };
 </script>
 
-  <title>ResponseBody详解 | freeNeasy</title>
+  <title>牛客网中级项目（二） | freeNeasy</title>
   
 
 
@@ -377,7 +376,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.freeneasy.top/2019/05/21/ResponseBody/">
+    <link itemprop="mainEntityOfPage" href="http://www.freeneasy.top/2019/05/21/NewCoder2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="freeNeasy">
@@ -394,7 +393,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ResponseBody详解
+          <h1 class="post-title" itemprop="name headline">牛客网中级项目（二）
 
               
             
@@ -420,7 +419,7 @@
                 
               
 
-              <time title="创建时间：2019-05-21 10:27:30 / 修改时间：11:17:14" itemprop="dateCreated datePublished" datetime="2019-05-21T10:27:30+08:00">2019-05-21</time>
+              <time title="创建时间：2019-05-21 10:52:06 / 修改时间：11:14:43" itemprop="dateCreated datePublished" datetime="2019-05-21T10:52:06+08:00">2019-05-21</time>
             
 
             
@@ -442,7 +441,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/SSM/" itemprop="url" rel="index"><span itemprop="name">SSM</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/项目/" itemprop="url" rel="index"><span itemprop="name">项目</span></a></span>
 
                 
                 
@@ -461,8 +460,8 @@
                 </span>
             
                 <span class="post-meta-item-text">评论数：</span>
-                <a href="/2019/05/21/ResponseBody/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/21/ResponseBody/" itemprop="commentCount"></span>
+                <a href="/2019/05/21/NewCoder2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/21/NewCoder2/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -497,14 +496,41 @@
       
 
       
-        <p>@responseBody注解的作用是将controller的方法返回的对象通过适当的转换器转换为指定的格式之后，写入到response对象的body区，通常用来返回JSON数据或者是XML数据，需要注意的呢，在使用此注解之后不会再走视图处理器，而是直接将数据写入到输入流中，他的效果等同于通过response对象输出指定格式的数据。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">　  <span class="meta">@RequestMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line">　　<span class="meta">@ResponseBody</span></span><br><span class="line">　　<span class="function"><span class="keyword">public</span> User <span class="title">login</span><span class="params">(User user)</span></span>&#123;</span><br><span class="line">　　　　<span class="keyword">return</span> user;</span><br><span class="line">　　&#125;</span><br><span class="line">　　<span class="comment">//User字段：userName pwd</span></span><br><span class="line">　　<span class="comment">//那么在前台接收到的数据为：'&#123;"userName":"xxx","pwd":"xxx"&#125;'</span></span><br><span class="line">　　<span class="comment">//效果等同于如下代码：</span></span><br><span class="line"></span><br><span class="line">　　<span class="meta">@RequestMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line">　　<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">login</span><span class="params">(User user, HttpServletResponse response)</span></span>&#123;</span><br><span class="line">　　　　response.getWriter.write(JSONObject.fromObject(user).toString());</span><br><span class="line">　　&#125;</span><br></pre></td></tr></table></figure>
-<p>以上参考：<a href="https://www.cnblogs.com/qiankun-site/p/5774325.html" target="_blank" rel="noopener">https://www.cnblogs.com/qiankun-site/p/5774325.html</a> </p>
-<p>如果在一个方法上使用了@RequestMapping注解，这时候，方法的返回值通常解析为跳转的路径， 也就是说，要跳<br><a id="more"></a><br>转到指定的jsp页面。在这个代码实例中，要跳转到的是 Hello World.jsp 页面。 因为工程中尚未添加这个jsp文件，所以报出了 404 错误 （The requested resource is not available）。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping</span>(path = <span class="string">"/test"</span>)</span><br><span class="line">    <span class="comment">//@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello World"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="//www.freeneasy.top/2019/05/21/ResponseBody/1.png" alt="img"><br>如果添加了 @ResponseBody 这个注解， 则表明该方法的返回值直接写入到 HTTP Response Body 中。 </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping</span>(path = <span class="string">"/test"</span>)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello World"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="//www.freeneasy.top/2019/05/21/ResponseBody/2.png" alt="img"><br><strong>一般在异步获取数据时使用，在使用@RequestMapping后，返回值通常解析为跳转路径，加上@responsebody后返回结果不会被解析为跳转路径，而是直接写入HTTP response body中。比如异步获取json数据，加上@responsebody后，会直接返回json数据。</strong></p>
+        <h1 id="MyBatis集成"><a href="#MyBatis集成" class="headerlink" title="MyBatis集成"></a>MyBatis集成</h1><p><strong>在application.properties增加spring配置数据库链接地址</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">spring.datasource.url=jdbc:mysql:<span class="comment">//localhost:3306/toutiao?useUnicode=true&amp;amp;characterEncoding=utf8&amp;amp;useSSL=false</span></span><br><span class="line">spring.datasource.username=root</span><br><span class="line">spring.datasource.password=<span class="number">123</span></span><br><span class="line">mybatis.config-location=classpath:mybatis-config.xml</span><br><span class="line">#logging.level.root=DEBUG</span><br><span class="line">spring.velocity.suffix=.html</span><br><span class="line">spring.velocity.cache=<span class="keyword">false</span></span><br><span class="line">#spring.velocity.toolbox-config-location=toolbox.xml</span><br></pre></td></tr></table></figure>
+<p><strong>pom.xml引入mybatis-spring-boot-starter和mysql-connector-java</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p><strong>mybatis-config.xml</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE configuration</span></span><br><span class="line"><span class="meta">        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"</span></span><br><span class="line"><span class="meta">        "http://mybatis.org/dtd/mybatis-3-config.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- Globally enables or disables any caches configured in any mapper under this configuration --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"cacheEnabled"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- Sets the number of seconds the driver will wait for a response from the database --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"defaultStatementTimeout"</span> <span class="attr">value</span>=<span class="string">"3000"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- Enables automatic mapping from classic database column names A_COLUMN to camel case classic Java property names aColumn --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"mapUnderscoreToCamelCase"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- Allows JDBC support for generated keys. A compatible driver is required.</span></span><br><span class="line"><span class="comment">        This setting forces generated keys to be used if set to true,</span></span><br><span class="line"><span class="comment">         as some drivers deny compatibility but still work --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"useGeneratedKeys"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Continue going here --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="注解配置"><a href="#注解配置" class="headerlink" title="注解配置"></a>注解配置</h1><h2 id="Mapper注解"><a href="#Mapper注解" class="headerlink" title="@Mapper注解"></a>@Mapper注解</h2><p>参考：<a href="https://blog.csdn.net/weixin_39666581/article/details/81057385" target="_blank" rel="noopener">https://blog.csdn.net/weixin_39666581/article/details/81057385</a></p>
+<p>作用：</p>
+<p>1:为了把mapper这个DAO交給Spring管理</p>
+<p>2:为了不再写mapper映射文件</p>
+<p>3:为了给mapper接口自动根据一个添加@Mapper注解的接口生成一个实现类 </p>
+<p><strong>在方法参数的前面写上@Param(“参数名”),表示给参数命名,名称就是括号中的内容</strong></p>
+<blockquote>
+<p>  List<news> selectByUserIdAndOffset(@Param(“userId”) int userId, @Param(“offset”) int offset,<br>                                       @Param(“limit”) int limit);</news></p>
+</blockquote>
+<p>给入参的int userId,int offset,int limit分别命名为userId,offset,limit, 然后就可以传递参数了，XML映射文件中的sql语句就可以得到相应的参数啦。</p>
+<blockquote>
+<p>​        <if test="userId != 0"><br>​            WHERE user_id = #{userId}<br>​        </if><br>​        ORDER BY id DESC<br>​        LIMIT #{offset},#{limit}</p>
+</blockquote>
+<p><strong>@Param是MyBatis所提供的(org.apache.ibatis.annotations.Param)，作为Dao层的注解，作用是用于传递参数，从而可以与SQL中的的字段名相对应。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.nowcoder.dao;</span><br><span class="line"><span class="keyword">import</span> com.nowcoder.model.News;</span><br><span class="line"><span class="keyword">import</span> com.nowcoder.model.User;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.*;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">NewsDAO</span> </span>&#123;</span><br><span class="line">    String TABLE_NAME = <span class="string">"news"</span>;</span><br><span class="line">    String INSERT_FIELDS = <span class="string">" title, link, image, like_count, comment_count, created_date, user_id"</span>;</span><br><span class="line">    String SELECT_FIELDS = <span class="string">"id"</span> + INSERT_FIELDS;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Insert</span>(&#123;<span class="string">"insert into "</span>, TABLE_NAME, <span class="string">"("</span>, INSERT_FIELDS,</span><br><span class="line">            <span class="string">") values (#&#123;title&#125;,#&#123;link&#125;,#&#123;image&#125;,#&#123;likeCount&#125;,#&#123;commentCount&#125;,#&#123;createdDate&#125;,#&#123;userId&#125;)"</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">addNews</span><span class="params">(News news)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function">List&lt;News&gt; <span class="title">selectByUserIdAndOffset</span><span class="params">(@Param(<span class="string">"userId"</span>)</span> <span class="keyword">int</span> userId, @<span class="title">Param</span><span class="params">(<span class="string">"offset"</span>)</span> <span class="keyword">int</span> offset, @<span class="title">Param</span><span class="params">(<span class="string">"limit"</span>)</span> <span class="keyword">int</span> limit)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Select</span>(&#123;<span class="string">"select"</span>, SELECT_FIELDS, <span class="string">"from"</span>, TABLE_NAME, <span class="string">"where id=#&#123;id&#125;"</span>&#125;)</span><br><span class="line">    <span class="function">News <span class="title">selectById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Update</span>(&#123;<span class="string">"update"</span>, TABLE_NAME, <span class="string">"set password=#&#123;password&#125; where id=#&#123;id&#125;"</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">updatePassword</span><span class="params">(User user)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Delete</span>(&#123;<span class="string">"delete from"</span>, TABLE_NAME,<span class="string">"where id=#&#123;id&#125;"</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">deleteById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="XML配置"><a href="#XML配置" class="headerlink" title="XML配置"></a>XML配置</h1><p><strong>在相同的包目录下定义同名的XML</strong></p>
+<p><img src="//www.freeneasy.top/2019/05/21/NewCoder2/1.png" alt="img"></p>
+<p><strong>NewsDAO.xml</strong></p>
+<p>MyBatis 的真正强大在于它的映射语句，这是它的魔力所在。由于它的异常强大，映射器的 XML 文件就显得相对简单。如果拿它跟具有相同功能的 JDBC 代码进行对比，你会立即发现省掉了将近 95% 的代码。MyBatis 为聚焦于 SQL 而构建，以尽可能地为你减少麻烦。<strong>官方的话有味道啊。</strong></p>
+<p><strong>使用xml的好处，可以在里面写一些复杂的操作，减少代码量。</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"</span></span><br><span class="line"><span class="meta">        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" &gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.nowcoder.dao.NewsDAO"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"table"</span>&gt;</span>news<span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"selectFields"</span>&gt;</span>id,title, link, image, like_count, comment_count,created_date,user_id</span><br><span class="line">    <span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectByUserIdAndOffset"</span> <span class="attr">resultType</span>=<span class="string">"com.nowcoder.model.News"</span>&gt;</span></span><br><span class="line">        SELECT</span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"selectFields"</span>/&gt;</span></span><br><span class="line">        FROM</span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"table"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"userId != 0"</span>&gt;</span></span><br><span class="line">            WHERE user_id = #&#123;userId&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        ORDER BY id DESC</span><br><span class="line">        LIMIT #&#123;offset&#125;,#&#123;limit&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="ViewObject"><a href="#ViewObject" class="headerlink" title="ViewObject"></a>ViewObject</h1><p><strong>自定义类ViewObject，ViewObject是个map的包装类，方便把任何类型的数据放到一起。通过model将数据输送到页面。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.nowcoder.model;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ViewObject</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, Object&gt; objs = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(String key, Object value)</span> </span>&#123;</span><br><span class="line">        objs.put(key, value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">get</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> objs.get(key);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.nowcoder.controller;</span><br><span class="line"><span class="keyword">import</span> com.nowcoder.model.News;</span><br><span class="line"><span class="keyword">import</span> com.nowcoder.model.ViewObject;</span><br><span class="line"><span class="keyword">import</span> com.nowcoder.service.NewsService;</span><br><span class="line"><span class="keyword">import</span> com.nowcoder.service.UserService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.ui.Model;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HomeController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    NewsService newsService;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    UserService userService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(path = &#123;<span class="string">"/"</span>, <span class="string">"/index"</span>&#125;, method = &#123;RequestMethod.GET, RequestMethod.POST&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">index</span><span class="params">(Model model)</span> </span>&#123;</span><br><span class="line">        List&lt;News&gt; newsList = newsService.getLatestNews(<span class="number">0</span>,<span class="number">0</span>,<span class="number">10</span>);</span><br><span class="line">        List&lt;ViewObject&gt; vos = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (News news : newsList) &#123;</span><br><span class="line">            ViewObject vo = <span class="keyword">new</span> ViewObject();</span><br><span class="line">            vo.set(<span class="string">"news"</span>, news);</span><br><span class="line">            vo.set(<span class="string">"user"</span>, userService.getUser(news.getUserId()));</span><br><span class="line">            vos.add(vo);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        model.addAttribute(<span class="string">"vos"</span>, vos);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"home"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="DateTool"><a href="#DateTool" class="headerlink" title="DateTool"></a>DateTool</h1><p><strong>velocity自带工具类导入</strong></p>
+<p><strong>toolbox.xml</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">toolbox</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tool</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>date<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>application<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">class</span>&gt;</span>org.apache.velocity.tools.generic.DateTool<span class="tag">&lt;/<span class="name">class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tool</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">toolbox</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>application.properties</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">spring.datasource.url=jdbc:mysql:<span class="comment">//localhost:3306/toutiao?useUnicode=true&amp;amp;characterEncoding=utf8&amp;amp;useSSL=false</span></span><br><span class="line">spring.datasource.username=root</span><br><span class="line">spring.datasource.password=<span class="number">123</span></span><br><span class="line">mybatis.config-location=classpath:mybatis-config.xml</span><br><span class="line">#logging.level.root=DEBUG</span><br><span class="line">spring.velocity.suffix=.html</span><br><span class="line">spring.velocity.cache=<span class="keyword">false</span></span><br><span class="line">spring.velocity.toolbox-config-location=toolbox.xml</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -524,12 +550,12 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2019/05/21/ResponseBody/">ResponseBody详解</a></p>
+  <p><span>本文标题:</span><a href="/2019/05/21/NewCoder2/">牛客网中级项目（二）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 freeNeasy 的个人博客">freeNeasy</a></p>
   <p><span>发布时间:</span>2019年05月21日 - 10:05</p>
   <p><span>最后更新:</span>2019年05月21日 - 11:05</p>
-  <p><span>原始链接:</span><a href="/2019/05/21/ResponseBody/" title="ResponseBody详解">http://www.freeneasy.top/2019/05/21/ResponseBody/</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.freeneasy.top/2019/05/21/ResponseBody/" aria-label="复制成功！"></i></span>
+  <p><span>原始链接:</span><a href="/2019/05/21/NewCoder2/" title="牛客网中级项目（二）">http://www.freeneasy.top/2019/05/21/NewCoder2/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.freeneasy.top/2019/05/21/NewCoder2/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> 转载请保留原文链接及作者。</p>  
 </div>
@@ -596,9 +622,15 @@
       
         <div class="post-tags">
           
-            <a href="/tags/ResponseBody/" rel="tag"><strong><i class="fa fa-tag"></i></strong> ResponseBody</a>
+            <a href="/tags/MyBatis/" rel="tag"><strong><i class="fa fa-tag"></i></strong> MyBatis</a>
           
-            <a href="/tags/RequestMapping/" rel="tag"><strong><i class="fa fa-tag"></i></strong> RequestMapping</a>
+            <a href="/tags/Mapper注解/" rel="tag"><strong><i class="fa fa-tag"></i></strong> Mapper注解</a>
+          
+            <a href="/tags/XML配置/" rel="tag"><strong><i class="fa fa-tag"></i></strong> XML配置</a>
+          
+            <a href="/tags/ViewObject/" rel="tag"><strong><i class="fa fa-tag"></i></strong> ViewObject</a>
+          
+            <a href="/tags/DateTool/" rel="tag"><strong><i class="fa fa-tag"></i></strong> DateTool</a>
           
         </div>
       
@@ -611,8 +643,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/20/IOC&DI/" rel="next" title="IOC与DI">
-                <i class="fa fa-chevron-left"></i> IOC与DI
+              <a href="/2019/05/21/MVC/" rel="next" title="MVC模式&DAO，Service，Controller、View层级理解">
+                <i class="fa fa-chevron-left"></i> MVC模式&DAO，Service，Controller、View层级理解
               </a>
             
           </div>
@@ -620,10 +652,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/21/MVC/" rel="prev" title="MVC模式&DAO，Service，Controller、View层级理解">
-                MVC模式&DAO，Service，Controller、View层级理解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -671,8 +699,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -856,6 +893,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MyBatis集成"><span class="nav-number">1.</span> <span class="nav-text">MyBatis集成</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注解配置"><span class="nav-number">2.</span> <span class="nav-text">注解配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mapper注解"><span class="nav-number">2.1.</span> <span class="nav-text">@Mapper注解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XML配置"><span class="nav-number">3.</span> <span class="nav-text">XML配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ViewObject"><span class="nav-number">4.</span> <span class="nav-text">ViewObject</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DateTool"><span class="nav-number">5.</span> <span class="nav-text">DateTool</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       

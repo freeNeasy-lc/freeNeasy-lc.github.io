@@ -99,14 +99,14 @@
   <meta name="description" content="MVC模式你在浏览器输入好用户名和密码之后，点击登录，浏览器会给服务器发个请求。 服务器接到请求之后，按照预先设定的路由规则把参数传给相应的controller。 controller判断参数合法性之后，从model那边拿数据。 model通过orm从数据库里面把数据取出来、封装成对象给controller。 之后，controller根据结果进行判断，然后加载相应的view（模板）。 最后con">
 <meta name="keywords" content="MVC,Dao&#x2F;Mapper层,Model&#x2F;Entity层,Service层,Controller层,View层">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MVC">
+<meta property="og:title" content="MVC模式&amp;DAO，Service，Controller、View层级理解">
 <meta property="og:url" content="http://www.freeneasy.top/2019/05/21/MVC/index.html">
 <meta property="og:site_name" content="freeNeasy">
 <meta property="og:description" content="MVC模式你在浏览器输入好用户名和密码之后，点击登录，浏览器会给服务器发个请求。 服务器接到请求之后，按照预先设定的路由规则把参数传给相应的controller。 controller判断参数合法性之后，从model那边拿数据。 model通过orm从数据库里面把数据取出来、封装成对象给controller。 之后，controller根据结果进行判断，然后加载相应的view（模板）。 最后con">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-21T02:50:10.570Z">
+<meta property="og:updated_time" content="2019-05-21T03:15:13.352Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MVC">
+<meta name="twitter:title" content="MVC模式&amp;DAO，Service，Controller、View层级理解">
 <meta name="twitter:description" content="MVC模式你在浏览器输入好用户名和密码之后，点击登录，浏览器会给服务器发个请求。 服务器接到请求之后，按照预先设定的路由规则把参数传给相应的controller。 controller判断参数合法性之后，从model那边拿数据。 model通过orm从数据库里面把数据取出来、封装成对象给controller。 之后，controller根据结果进行判断，然后加载相应的view（模板）。 最后con">
 
 
@@ -125,7 +125,7 @@
   };
 </script>
 
-  <title>MVC | freeNeasy</title>
+  <title>MVC模式&DAO，Service，Controller、View层级理解 | freeNeasy</title>
   
 
 
@@ -391,7 +391,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">MVC
+          <h1 class="post-title" itemprop="name headline">MVC模式&DAO，Service，Controller、View层级理解
 
               
             
@@ -417,7 +417,7 @@
                 
               
 
-              <time title="创建时间：2019-05-21 10:41:41 / 修改时间：10:50:10" itemprop="dateCreated datePublished" datetime="2019-05-21T10:41:41+08:00">2019-05-21</time>
+              <time title="创建时间：2019-05-21 10:41:41 / 修改时间：11:15:13" itemprop="dateCreated datePublished" datetime="2019-05-21T10:41:41+08:00">2019-05-21</time>
             
 
             
@@ -548,11 +548,11 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2019/05/21/MVC/">MVC</a></p>
+  <p><span>本文标题:</span><a href="/2019/05/21/MVC/">MVC模式&DAO，Service，Controller、View层级理解</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 freeNeasy 的个人博客">freeNeasy</a></p>
   <p><span>发布时间:</span>2019年05月21日 - 10:05</p>
-  <p><span>最后更新:</span>2019年05月21日 - 10:05</p>
-  <p><span>原始链接:</span><a href="/2019/05/21/MVC/" title="MVC">http://www.freeneasy.top/2019/05/21/MVC/</a>
+  <p><span>最后更新:</span>2019年05月21日 - 11:05</p>
+  <p><span>原始链接:</span><a href="/2019/05/21/MVC/" title="MVC模式&DAO，Service，Controller、View层级理解">http://www.freeneasy.top/2019/05/21/MVC/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.freeneasy.top/2019/05/21/MVC/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> 转载请保留原文链接及作者。</p>  
@@ -643,8 +643,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/21/ResponseBody/" rel="next" title="ResponseBody">
-                <i class="fa fa-chevron-left"></i> ResponseBody
+              <a href="/2019/05/21/ResponseBody/" rel="next" title="ResponseBody详解">
+                <i class="fa fa-chevron-left"></i> ResponseBody详解
               </a>
             
           </div>
@@ -652,6 +652,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/21/NewCoder2/" rel="prev" title="牛客网中级项目（二）">
+                牛客网中级项目（二） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -726,7 +730,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -808,7 +812,17 @@
                     
                       
                     
-                    <span class="site-state-item-count">18</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -929,7 +943,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共8.7k字</span>
+  <span class="post-count">博客全站共10k字</span>
 </div>
         
 <div class="busuanzi-count">
