@@ -96,13 +96,21 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="freeNeasy">
-<meta property="og:url" content="http://www.freeneasy.top/archives/page/2/index.html">
+  <meta name="description" content="若方法上声明了@ResponseBody，则会直接将返回值输出到页面。 Model(org.springframework.ui.Model)Model是用来传输数据的，如果用来接收一组数据List，Model实际上就是ModelMap。  public class ExtendedModelMap extends ModelMap implements Model  spring.velocit">
+<meta name="keywords" content="Model,ModelMap,ModelAndView">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring中Model、ModelMap及ModelAndView详解">
+<meta property="og:url" content="http://www.freeneasy.top/2019/05/21/Model/index.html">
 <meta property="og:site_name" content="freeNeasy">
+<meta property="og:description" content="若方法上声明了@ResponseBody，则会直接将返回值输出到页面。 Model(org.springframework.ui.Model)Model是用来传输数据的，如果用来接收一组数据List，Model实际上就是ModelMap。  public class ExtendedModelMap extends ModelMap implements Model  spring.velocit">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.freeneasy.top/2019/05/21/Model/1.png">
+<meta property="og:image" content="http://www.freeneasy.top/2019/05/21/Model/2.png">
+<meta property="og:updated_time" content="2019-05-21T13:19:26.113Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="freeNeasy">
+<meta name="twitter:title" content="Spring中Model、ModelMap及ModelAndView详解">
+<meta name="twitter:description" content="若方法上声明了@ResponseBody，则会直接将返回值输出到页面。 Model(org.springframework.ui.Model)Model是用来传输数据的，如果用来接收一组数据List，Model实际上就是ModelMap。  public class ExtendedModelMap extends ModelMap implements Model  spring.velocit">
+<meta name="twitter:image" content="http://www.freeneasy.top/2019/05/21/Model/1.png">
 
 
 
@@ -110,7 +118,7 @@
 
   
   
-  <link rel="canonical" href="http://www.freeneasy.top/archives/page/2/">
+  <link rel="canonical" href="http://www.freeneasy.top/2019/05/21/Model/">
 
 
 
@@ -120,7 +128,7 @@
   };
 </script>
 
-  <title>归档 | freeNeasy</title>
+  <title>Spring中Model、ModelMap及ModelAndView详解 | freeNeasy</title>
   
 
 
@@ -168,7 +176,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -278,7 +286,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     
     
@@ -307,28 +315,6 @@
 
   
     
-
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 
   
 
@@ -375,152 +361,306 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.freeneasy.top/2019/05/21/Model/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="freeNeasy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="freeNeasy">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">Spring中Model、ModelMap及ModelAndView详解
+
+              
+            
+          </h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-21 21:13:17 / 修改时间：21:19:26" itemprop="dateCreated datePublished" datetime="2019-05-21T21:13:17+08:00">2019-05-21</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 13 篇日志。 继续努力。
-      </span>
-      
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a></span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/05/14/usetupian/" itemprop="url">
+          
             
-              <span itemprop="name">使用Typora插入图片CSDN同步hexo</span>
             
-          </a>
-        
-      </h2>
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/05/21/Model/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/21/Model/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-14T20:44:53+08:00" content="2019-05-14">
-          05-14
-        </time>
-      </div>
+          
+          
 
-    </header>
-  </article>
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
 
+          
 
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/05/14/images2/" itemprop="url">
-            
-              <span itemprop="name">GitHub Pages+Coding Pages+域名绑定</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-14T20:24:49+08:00" content="2019-05-14">
-          05-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/05/14/images1/" itemprop="url">
-            
-              <span itemprop="name">hexo+github/Coding个人博客搭建</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-14T20:15:31+08:00" content="2019-05-14">
-          05-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <p>若方法上声明了@ResponseBody，则会直接将返回值输出到页面。</p>
+<h1 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h1><p>(org.springframework.ui.Model)<br>Model是用来传输数据的，如果用来接收一组数据List，Model实际上就是ModelMap。</p>
+<blockquote>
+<p>public class ExtendedModelMap extends ModelMap implements Model</p>
+</blockquote>
+<p><strong>spring.velocity.suffix=.html</strong>弄了半天，后缀名改了没发现，难受<br>例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/test"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">modelTest</span><span class="params">(Model model, String name)</span> </span>&#123;</span><br><span class="line">    model.addAttribute(<span class="string">"name"</span>, name);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>创建hello.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">pre</span>&gt;</span></span><br><span class="line">    Hello Vm</span><br><span class="line">value: $&#123;name&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">pre</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="//www.freeneasy.top/2019/05/21/Model/1.png" alt="img"></p>
+<h1 id="ModelMap"><a href="#ModelMap" class="headerlink" title="ModelMap"></a>ModelMap</h1><p>(org.springframework.ui.ModelMap)<br><strong>Spring框架自动创建ModelMap的实例，并作为Controller方法的参数传入，用户无需自己创建对象。</strong><br>ModelMap主要用于把controller方法处理的数据传递到jsp界面，把需要传输的数据放到ModelMap对象中即可。<br>通过addAttribute()方法传递参数。<br><strong>ModelMap本身不能设置页面的跳转，可以通过Controller方法的返回值来指定跳转的页面。</strong><br>跟Model用法差不多。返回值设置跳转的页面<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/test"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">modelTest</span><span class="params">(ModelMap model, String name)</span> </span>&#123;</span><br><span class="line">    model.addAttribute(<span class="string">"name"</span>, name);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="ModelAndView"><a href="#ModelAndView" class="headerlink" title="ModelAndView"></a>ModelAndView</h1><p>(org.springframework.web.servlet.ModelAndView)<br>作用：</p>
+<ol>
+<li>设置跳转的视图地址，<strong>这是ModelAndView和ModelMap的主要区别。</strong><br>ModelAndView view = new ModelAndView(“path:ok”);<br>或者通过setViewName设置视图地址</li>
+<li>把controller方法中处理的数据传到jsp页面，在controller方法中把jsp界面需要的数据放到ModelAndView对象中即可。然后return mv。<br>通过addObject()传递参数。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"model"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">modelTest</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//构建ModelAndView实例，并设置跳转的视图路径</span></span><br><span class="line">    <span class="comment">/*ModelAndView mv = new ModelAndView();</span></span><br><span class="line"><span class="comment">    mv.setViewName("hello");*/</span></span><br><span class="line">    ModelAndView mv = <span class="keyword">new</span> ModelAndView(<span class="string">"hello"</span>);</span><br><span class="line">    mv.addObject(<span class="string">"name"</span>,name);</span><br><span class="line">    <span class="keyword">return</span> mv;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="//www.freeneasy.top/2019/05/21/Model/2.png" alt="img"><br>controller方法的返回值如果是ModelAndView，则其即包含<strong>模型数据信息</strong>，又包含<strong>视图信息</strong>，这样SpringMVC将使用包含的视图对模型数据进行渲染，可以简单地将模型数据看成一个Map&lt;String, Object&gt;对象。</p>
 
       
-
     </div>
+
+    
+
+    
+    
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/05/21/Model/">Spring中Model、ModelMap及ModelAndView详解</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 freeNeasy 的个人博客">freeNeasy</a></p>
+  <p><span>发布时间:</span>2019年05月21日 - 21:05</p>
+  <p><span>最后更新:</span>2019年05月21日 - 21:05</p>
+  <p><span>原始链接:</span><a href="/2019/05/21/Model/" title="Spring中Model、ModelMap及ModelAndView详解">http://www.freeneasy.top/2019/05/21/Model/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.freeneasy.top/2019/05/21/Model/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+	
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="freeNeasy 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.png" alt="freeNeasy 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Model/" rel="tag"><strong><i class="fa fa-tag"></i></strong> Model</a>
+          
+            <a href="/tags/ModelMap/" rel="tag"><strong><i class="fa fa-tag"></i></strong> ModelMap</a>
+          
+            <a href="/tags/ModelAndView/" rel="tag"><strong><i class="fa fa-tag"></i></strong> ModelAndView</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/21/NewCoder2/" rel="next" title="牛客网中级项目（二）">
+                <i class="fa fa-chevron-left"></i> 牛客网中级项目（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-  </nav>
+  </article>
 
 
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
 
         </div>
         
@@ -540,8 +680,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -732,6 +881,23 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Model"><span class="nav-number">1.</span> <span class="nav-text">Model</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ModelMap"><span class="nav-number">2.</span> <span class="nav-text">ModelMap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ModelAndView"><span class="nav-number">3.</span> <span class="nav-text">ModelAndView</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
 
@@ -876,6 +1042,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
 
   
 
@@ -921,6 +1091,8 @@
 
 
 
+
+  
 
 
   
