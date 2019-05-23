@@ -100,16 +100,16 @@
 <meta name="keywords" content="MyBatis,Mapper注解,XML配置,ViewObject,DateTool">
 <meta property="og:type" content="article">
 <meta property="og:title" content="牛客网中级项目（二）">
-<meta property="og:url" content="http://www.freeneasy.top/2019/05/21/NewCoder2/index.html">
+<meta property="og:url" content="http://www.freeneasy.top/2019/05/21/NowCoder2/index.html">
 <meta property="og:site_name" content="freeNeasy">
 <meta property="og:description" content="MyBatis集成在application.properties增加spring配置数据库链接地址 12345678spring.datasource.url=jdbc:mysql://localhost:3306/toutiao?useUnicode=true&amp;amp;amp;characterEncoding=utf8&amp;amp;amp;useSSL=falsespring.datasource">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://www.freeneasy.top/2019/05/21/NewCoder2/1.png">
-<meta property="og:updated_time" content="2019-05-21T03:14:43.465Z">
+<meta property="og:image" content="http://www.freeneasy.top/2019/05/21/NowCoder2/1.png">
+<meta property="og:updated_time" content="2019-05-23T13:36:36.315Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="牛客网中级项目（二）">
 <meta name="twitter:description" content="MyBatis集成在application.properties增加spring配置数据库链接地址 12345678spring.datasource.url=jdbc:mysql://localhost:3306/toutiao?useUnicode=true&amp;amp;amp;characterEncoding=utf8&amp;amp;amp;useSSL=falsespring.datasource">
-<meta name="twitter:image" content="http://www.freeneasy.top/2019/05/21/NewCoder2/1.png">
+<meta name="twitter:image" content="http://www.freeneasy.top/2019/05/21/NowCoder2/1.png">
 
 
 
@@ -117,7 +117,7 @@
 
   
   
-  <link rel="canonical" href="http://www.freeneasy.top/2019/05/21/NewCoder2/">
+  <link rel="canonical" href="http://www.freeneasy.top/2019/05/21/NowCoder2/">
 
 
 
@@ -376,7 +376,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.freeneasy.top/2019/05/21/NewCoder2/">
+    <link itemprop="mainEntityOfPage" href="http://www.freeneasy.top/2019/05/21/NowCoder2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="freeNeasy">
@@ -419,12 +419,24 @@
                 
               
 
-              <time title="创建时间：2019-05-21 10:52:06 / 修改时间：11:14:43" itemprop="dateCreated datePublished" datetime="2019-05-21T10:52:06+08:00">2019-05-21</time>
+              <time title="创建时间：2019-05-21 10:52:06" itemprop="dateCreated datePublished" datetime="2019-05-21T10:52:06+08:00">2019-05-21</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-23 21:36:36" itemprop="dateModified" datetime="2019-05-23T21:36:36+08:00">2019-05-23</time>
               
             
           </span>
@@ -460,8 +472,8 @@
                 </span>
             
                 <span class="post-meta-item-text">评论数：</span>
-                <a href="/2019/05/21/NewCoder2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/21/NewCoder2/" itemprop="commentCount"></span>
+                <a href="/2019/05/21/NowCoder2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/21/NowCoder2/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -519,7 +531,7 @@
 <p><strong>@Param是MyBatis所提供的(org.apache.ibatis.annotations.Param)，作为Dao层的注解，作用是用于传递参数，从而可以与SQL中的的字段名相对应。</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.nowcoder.dao;</span><br><span class="line"><span class="keyword">import</span> com.nowcoder.model.News;</span><br><span class="line"><span class="keyword">import</span> com.nowcoder.model.User;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.*;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">NewsDAO</span> </span>&#123;</span><br><span class="line">    String TABLE_NAME = <span class="string">"news"</span>;</span><br><span class="line">    String INSERT_FIELDS = <span class="string">" title, link, image, like_count, comment_count, created_date, user_id"</span>;</span><br><span class="line">    String SELECT_FIELDS = <span class="string">"id"</span> + INSERT_FIELDS;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Insert</span>(&#123;<span class="string">"insert into "</span>, TABLE_NAME, <span class="string">"("</span>, INSERT_FIELDS,</span><br><span class="line">            <span class="string">") values (#&#123;title&#125;,#&#123;link&#125;,#&#123;image&#125;,#&#123;likeCount&#125;,#&#123;commentCount&#125;,#&#123;createdDate&#125;,#&#123;userId&#125;)"</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">addNews</span><span class="params">(News news)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function">List&lt;News&gt; <span class="title">selectByUserIdAndOffset</span><span class="params">(@Param(<span class="string">"userId"</span>)</span> <span class="keyword">int</span> userId, @<span class="title">Param</span><span class="params">(<span class="string">"offset"</span>)</span> <span class="keyword">int</span> offset, @<span class="title">Param</span><span class="params">(<span class="string">"limit"</span>)</span> <span class="keyword">int</span> limit)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Select</span>(&#123;<span class="string">"select"</span>, SELECT_FIELDS, <span class="string">"from"</span>, TABLE_NAME, <span class="string">"where id=#&#123;id&#125;"</span>&#125;)</span><br><span class="line">    <span class="function">News <span class="title">selectById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Update</span>(&#123;<span class="string">"update"</span>, TABLE_NAME, <span class="string">"set password=#&#123;password&#125; where id=#&#123;id&#125;"</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">updatePassword</span><span class="params">(User user)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Delete</span>(&#123;<span class="string">"delete from"</span>, TABLE_NAME,<span class="string">"where id=#&#123;id&#125;"</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">deleteById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="XML配置"><a href="#XML配置" class="headerlink" title="XML配置"></a>XML配置</h1><p><strong>在相同的包目录下定义同名的XML</strong></p>
-<p><img src="//www.freeneasy.top/2019/05/21/NewCoder2/1.png" alt="img"></p>
+<p><img src="//www.freeneasy.top/2019/05/21/NowCoder2/1.png" alt="img"></p>
 <p><strong>NewsDAO.xml</strong></p>
 <p>MyBatis 的真正强大在于它的映射语句，这是它的魔力所在。由于它的异常强大，映射器的 XML 文件就显得相对简单。如果拿它跟具有相同功能的 JDBC 代码进行对比，你会立即发现省掉了将近 95% 的代码。MyBatis 为聚焦于 SQL 而构建，以尽可能地为你减少麻烦。<strong>官方的话有味道啊。</strong></p>
 <p><strong>使用xml的好处，可以在里面写一些复杂的操作，减少代码量。</strong></p>
@@ -550,12 +562,12 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2019/05/21/NewCoder2/">牛客网中级项目（二）</a></p>
+  <p><span>本文标题:</span><a href="/2019/05/21/NowCoder2/">牛客网中级项目（二）</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 freeNeasy 的个人博客">freeNeasy</a></p>
   <p><span>发布时间:</span>2019年05月21日 - 10:05</p>
-  <p><span>最后更新:</span>2019年05月21日 - 11:05</p>
-  <p><span>原始链接:</span><a href="/2019/05/21/NewCoder2/" title="牛客网中级项目（二）">http://www.freeneasy.top/2019/05/21/NewCoder2/</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.freeneasy.top/2019/05/21/NewCoder2/" aria-label="复制成功！"></i></span>
+  <p><span>最后更新:</span>2019年05月23日 - 21:05</p>
+  <p><span>原始链接:</span><a href="/2019/05/21/NowCoder2/" title="牛客网中级项目（二）">http://www.freeneasy.top/2019/05/21/NowCoder2/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.freeneasy.top/2019/05/21/NowCoder2/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> 转载请保留原文链接及作者。</p>  
 </div>
@@ -730,7 +742,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -828,7 +840,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">26</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -949,7 +969,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共10.5k字</span>
+  <span class="post-count">博客全站共14.4k字</span>
 </div>
         
 <div class="busuanzi-count">

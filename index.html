@@ -370,6 +370,196 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.freeneasy.top/2019/05/23/NowCoder3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="freeNeasy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="freeNeasy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/23/NowCoder3/" class="post-title-link" itemprop="url">牛客网中级项目（三）</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-23 21:37:35 / 修改时间：22:02:51" itemprop="dateCreated datePublished" datetime="2019-05-23T21:37:35+08:00">2019-05-23</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/项目/" itemprop="url" rel="index"><span itemprop="name">项目</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/05/23/NowCoder3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/23/NowCoder3/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h1><p>用户注册时，controller层接收前端传来的注册信息(username和password)。</p>
+<p>service层进行业务逻辑处理，定义register方法，使用Map来返回数据。</p>
+<p>判断用户注册的名称，密码是否为空，再去UserDao中查找用户名是否已经注册，如果为空或者已经注册，则放到map集合中，return map。</p>
+<p>如果用户注册信息正常，用户名未被注册，则将用户注册信息添加到数据库addUser()，并对原有的password进行加salt处理，并进行MD5加密。</p>
+<p>再回到controller层，使用@ResponseBody,不返回页面。无论用户注册成功与否，都返回一个json串给用户。</p>
+<p>使用阿里的fastjson工具，并在ToutiaoUtil中，自定义json方法和MD5加密。</p>
+<p><strong>Controller层</strong><br></p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/05/23/NowCoder3/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+	
+	<div>
+      
+	</div>
+	
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.freeneasy.top/2019/05/21/Model/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -560,7 +750,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.freeneasy.top/2019/05/21/NewCoder2/">
+    <link itemprop="mainEntityOfPage" href="http://www.freeneasy.top/2019/05/21/NowCoder2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="freeNeasy">
@@ -580,7 +770,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/05/21/NewCoder2/" class="post-title-link" itemprop="url">牛客网中级项目（二）</a>
+                <a href="/2019/05/21/NowCoder2/" class="post-title-link" itemprop="url">牛客网中级项目（二）</a>
               
             
           </h1>
@@ -605,12 +795,24 @@
                 
               
 
-              <time title="创建时间：2019-05-21 10:52:06 / 修改时间：11:14:43" itemprop="dateCreated datePublished" datetime="2019-05-21T10:52:06+08:00">2019-05-21</time>
+              <time title="创建时间：2019-05-21 10:52:06" itemprop="dateCreated datePublished" datetime="2019-05-21T10:52:06+08:00">2019-05-21</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-23 21:36:36" itemprop="dateModified" datetime="2019-05-23T21:36:36+08:00">2019-05-23</time>
               
             
           </span>
@@ -646,8 +848,8 @@
                 </span>
             
                 <span class="post-meta-item-text">评论数：</span>
-                <a href="/2019/05/21/NewCoder2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/21/NewCoder2/" itemprop="commentCount"></span>
+                <a href="/2019/05/21/NowCoder2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/21/NowCoder2/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -683,7 +885,7 @@
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/05/21/NewCoder2/#more" rel="contents">
+              <a class="btn" href="/2019/05/21/NowCoder2/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -2049,210 +2251,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.freeneasy.top/2019/05/14/images3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="freeNeasy">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="freeNeasy">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/14/images3/" class="post-title-link" itemprop="url">牛客网中级项目（一）</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-05-14 20:57:55" itemprop="dateCreated datePublished" datetime="2019-05-14T20:57:55+08:00">2019-05-14</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-05-20 20:25:58" itemprop="dateModified" datetime="2019-05-20T20:25:58+08:00">2019-05-20</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/项目/" itemprop="url" rel="index"><span itemprop="name">项目</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2019/05/14/images3/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/14/images3/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Controller控制器及常用注解"><a href="#Controller控制器及常用注解" class="headerlink" title="Controller控制器及常用注解"></a>Controller控制器及常用注解</h1><p>SpringMVC中，控制器Controller负责处理由DispatcherServlet(前端控制器)分发的请求，它把用户请求的数据经过业务处理层处理之后封装成一个Model,然后再把该Model返回给对应的view进行展示。</p>
-<p>控制器简而言之：就是接收和处理客户端的请求，spring通过注解控制器类，加载特定的控制器。</p>
-<p>参数注解：</p>
-<p><strong>@PathVariable：映射URL绑定的占位符</strong></p>
-<p><strong>@RequestParam：注解获取GET和POST请求的参数，将指定的请求参数赋值给方法中的形参</strong></p>
-<p><strong>@CookieValue 获取指定cookie的值</strong></p>
-<p><strong>使用@RequestParam(value=”xxx”,required=false)时需要注意的问题</strong></p>
-<p>required=false：可以不传这个参数</p>
-<p>required=true：必须传这个参数<br></p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/05/14/images3/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-	
-	<div>
-      
-	</div>
-	
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2301,7 +2299,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2399,7 +2397,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">26</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2503,7 +2509,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共10.5k字</span>
+  <span class="post-count">博客全站共14.4k字</span>
 </div>
         
 <div class="busuanzi-count">

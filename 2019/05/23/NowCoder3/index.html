@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="注册用户注册时，controller层接收前端传来的注册信息(username和password)。 service层进行业务逻辑处理，定义register方法，使用Map来返回数据。 判断用户注册的名称，密码是否为空，再去UserDao中查找用户名是否已经注册，如果为空或者已经注册，则放到map集合中，return map。 如果用户注册信息正常，用户名未被注册，则将用户注册信息添加到数据库ad">
+<meta name="keywords" content="devtools,链路回调,Interceptor,AJAX">
+<meta property="og:type" content="article">
+<meta property="og:title" content="牛客网中级项目（三）">
+<meta property="og:url" content="http://www.freeneasy.top/2019/05/23/NowCoder3/index.html">
+<meta property="og:site_name" content="freeNeasy">
+<meta property="og:description" content="注册用户注册时，controller层接收前端传来的注册信息(username和password)。 service层进行业务逻辑处理，定义register方法，使用Map来返回数据。 判断用户注册的名称，密码是否为空，再去UserDao中查找用户名是否已经注册，如果为空或者已经注册，则放到map集合中，return map。 如果用户注册信息正常，用户名未被注册，则将用户注册信息添加到数据库ad">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.freeneasy.top/2019/05/23/NowCoder3/1.png">
+<meta property="og:updated_time" content="2019-05-23T14:02:51.731Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="牛客网中级项目（三）">
+<meta name="twitter:description" content="注册用户注册时，controller层接收前端传来的注册信息(username和password)。 service层进行业务逻辑处理，定义register方法，使用Map来返回数据。 判断用户注册的名称，密码是否为空，再去UserDao中查找用户名是否已经注册，如果为空或者已经注册，则放到map集合中，return map。 如果用户注册信息正常，用户名未被注册，则将用户注册信息添加到数据库ad">
+<meta name="twitter:image" content="http://www.freeneasy.top/2019/05/23/NowCoder3/1.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://www.freeneasy.top/2019/05/23/NowCoder3/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>牛客网中级项目（三） | freeNeasy</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">freeNeasy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">LIFE IS FANTASTIC!</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.freeneasy.top/2019/05/23/NowCoder3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="freeNeasy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="freeNeasy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">牛客网中级项目（三）
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-23 21:37:35 / 修改时间：22:02:51" itemprop="dateCreated datePublished" datetime="2019-05-23T21:37:35+08:00">2019-05-23</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/项目/" itemprop="url" rel="index"><span itemprop="name">项目</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/05/23/NowCoder3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/05/23/NowCoder3/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h1><p>用户注册时，controller层接收前端传来的注册信息(username和password)。</p>
+<p>service层进行业务逻辑处理，定义register方法，使用Map来返回数据。</p>
+<p>判断用户注册的名称，密码是否为空，再去UserDao中查找用户名是否已经注册，如果为空或者已经注册，则放到map集合中，return map。</p>
+<p>如果用户注册信息正常，用户名未被注册，则将用户注册信息添加到数据库addUser()，并对原有的password进行加salt处理，并进行MD5加密。</p>
+<p>再回到controller层，使用@ResponseBody,不返回页面。无论用户注册成功与否，都返回一个json串给用户。</p>
+<p>使用阿里的fastjson工具，并在ToutiaoUtil中，自定义json方法和MD5加密。</p>
+<p><strong>Controller层</strong><br><a id="more"></a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginController</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(LoginController.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    UserService userService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(path = &#123;<span class="string">"/reg/"</span>&#125;, method = &#123;RequestMethod.GET, RequestMethod.POST&#125;)</span><br><span class="line">    <span class="comment">//正常返回的是一个页面，注册成功返回一个JSON串</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">reg</span><span class="params">(Model model, @RequestParam(<span class="string">"username"</span>)</span> String username,</span></span><br><span class="line"><span class="function">                      @<span class="title">RequestParam</span><span class="params">(<span class="string">"password"</span>)</span> String password,</span></span><br><span class="line"><span class="function">                      @<span class="title">RequestParam</span><span class="params">(value=<span class="string">"rember"</span>, defaultValue = <span class="string">"0"</span>)</span> <span class="keyword">int</span> rememberme,</span></span><br><span class="line"><span class="function">                      HttpServletResponse response) </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Map&lt;String, Object&gt; map = userService.register(username, password);</span><br><span class="line">            <span class="keyword">if</span>(map.isEmpty()) &#123;</span><br><span class="line">                <span class="keyword">return</span> ToutiaoUtil.getJSONString(<span class="number">0</span>, <span class="string">"注册成功"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> ToutiaoUtil.getJSONString(<span class="number">1</span>, map);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            logger.error(<span class="string">"注册异常"</span> + e.getMessage());</span><br><span class="line">            <span class="keyword">return</span> ToutiaoUtil.getJSONString(<span class="number">1</span>, <span class="string">"注册异常"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Service层</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(UserService.class);</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserDAO userDAO;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> LoginTicketDAO loginTicketDAO;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/* public void addUser(User user) &#123;</span></span><br><span class="line"><span class="comment">        userDAO.addUser(user);</span></span><br><span class="line"><span class="comment">    &#125;*/</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">register</span><span class="params">(String username, String password)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isBlank(username)) &#123;</span><br><span class="line">            map.put(<span class="string">"msgname"</span>, <span class="string">"用户名不能为空"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isBlank(password)) &#123;</span><br><span class="line">            map.put(<span class="string">"msgpwd"</span>, <span class="string">"密码不能为空"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        User user = userDAO.selectByName(username);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (user != <span class="keyword">null</span>) &#123;</span><br><span class="line">            map.put(<span class="string">"msgname"</span>, <span class="string">"用户名已经被注册"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 密码强度</span></span><br><span class="line">        user = <span class="keyword">new</span> User();</span><br><span class="line">        user.setName(username);</span><br><span class="line">        <span class="comment">//将原有的password+加上生成的salt进行加密</span></span><br><span class="line">        user.setSalt(UUID.randomUUID().toString().substring(<span class="number">0</span>, <span class="number">5</span>));</span><br><span class="line">        String head = String.format(<span class="string">"http://images.nowcoder.com/head/%dt.png"</span>, <span class="keyword">new</span> Random().nextInt(<span class="number">1000</span>));</span><br><span class="line">        user.setHeadUrl(head);</span><br><span class="line">        user.setPassword(ToutiaoUtil.MD5(password+user.getSalt()));</span><br><span class="line">        userDAO.addUser(user);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> map;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Dao层</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.nowcoder.dao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.nowcoder.model.User;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.*;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDAO</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    String TABLE_NAME = <span class="string">"user"</span>;</span><br><span class="line">    String INSET_FIELDS = <span class="string">" name, password, salt, head_url "</span>;</span><br><span class="line">    String SELECT_FIELDS = <span class="string">" id, name, password, salt, head_url"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Insert</span>(&#123;<span class="string">"insert into "</span>, TABLE_NAME, <span class="string">"("</span>, INSET_FIELDS,</span><br><span class="line">            <span class="string">") values (#&#123;name&#125;,#&#123;password&#125;,#&#123;salt&#125;,#&#123;headUrl&#125;)"</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">addUser</span><span class="params">(User user)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Select</span>(&#123;<span class="string">"select "</span>, SELECT_FIELDS, <span class="string">" from "</span>, TABLE_NAME, <span class="string">" where id=#&#123;id&#125;"</span>&#125;)</span><br><span class="line">    <span class="function">User <span class="title">selectById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Select</span>(&#123;<span class="string">"select "</span>, SELECT_FIELDS, <span class="string">" from "</span>, TABLE_NAME, <span class="string">" where name=#&#123;name&#125;"</span>&#125;)</span><br><span class="line">    <span class="function">User <span class="title">selectByName</span><span class="params">(String name)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Update</span>(&#123;<span class="string">"update "</span>, TABLE_NAME, <span class="string">" set password=#&#123;password&#125; where id=#&#123;id&#125;"</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">updatePassword</span><span class="params">(User user)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Delete</span>(&#123;<span class="string">"delete from "</span>, TABLE_NAME, <span class="string">" where id=#&#123;id&#125;"</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">deleteById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>自定义工具类</strong></p>
+<p>工具类中的方法都是静态，方便调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.nowcoder.util;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSONObject;</span><br><span class="line"><span class="keyword">import</span> com.nowcoder.controller.LoginController;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> java.security.MessageDigest;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ToutiaoUtil</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(ToutiaoUtil.class);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//运用fastjson工具，自定义一个json工具</span></span><br><span class="line">    <span class="comment">//服务器返回前端，一般都有一个code，告诉用户是否正确返回</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getJSONString</span><span class="params">(<span class="keyword">int</span> code)</span> </span>&#123;</span><br><span class="line">        JSONObject json = <span class="keyword">new</span> JSONObject();</span><br><span class="line">        json.put(<span class="string">"code"</span>, code);</span><br><span class="line">        <span class="keyword">return</span> json.toJSONString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getJSONString</span><span class="params">(<span class="keyword">int</span> code, String msg)</span> </span>&#123;</span><br><span class="line">        JSONObject json = <span class="keyword">new</span> JSONObject();</span><br><span class="line">        json.put(<span class="string">"code"</span>, code);</span><br><span class="line">        json.put(<span class="string">"msg"</span>, msg);</span><br><span class="line">        <span class="keyword">return</span> json.toJSONString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getJSONString</span><span class="params">(<span class="keyword">int</span> code, Map&lt;String, Object&gt; map)</span> </span>&#123;</span><br><span class="line">        JSONObject json = <span class="keyword">new</span> JSONObject();</span><br><span class="line">        json.put(<span class="string">"code"</span>, code);</span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;String, Object&gt; entry : map.entrySet()) &#123;</span><br><span class="line">            json.put(entry.getKey(), entry.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> json.toJSONString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">MD5</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">char</span> hexDigits[] = &#123;</span><br><span class="line">                <span class="string">'0'</span>, <span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>, <span class="string">'4'</span>, <span class="string">'5'</span>, <span class="string">'6'</span>, <span class="string">'7'</span>, <span class="string">'8'</span>, <span class="string">'9'</span>, <span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>, <span class="string">'D'</span>, <span class="string">'E'</span>, <span class="string">'F'</span>&#125;;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">byte</span>[] btInput = key.getBytes();</span><br><span class="line">            <span class="comment">// 获得MD5摘要算法的 MessageDigest 对象</span></span><br><span class="line">            MessageDigest mdInst = MessageDigest.getInstance(<span class="string">"MD5"</span>);</span><br><span class="line">            <span class="comment">// 使用指定的字节更新摘要</span></span><br><span class="line">            mdInst.update(btInput);</span><br><span class="line">            <span class="comment">// 获得密文</span></span><br><span class="line">            <span class="keyword">byte</span>[] md = mdInst.digest();</span><br><span class="line">            <span class="comment">// 把密文转换成十六进制的字符串形式</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> j = md.length;</span><br><span class="line">            <span class="keyword">char</span> str[] = <span class="keyword">new</span> <span class="keyword">char</span>[j * <span class="number">2</span>];</span><br><span class="line">            <span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; j; i++) &#123;</span><br><span class="line">                <span class="keyword">byte</span> byte0 = md[i];</span><br><span class="line">                str[k++] = hexDigits[byte0 &gt;&gt;&gt; <span class="number">4</span> &amp; <span class="number">0xf</span>];</span><br><span class="line">                str[k++] = hexDigits[byte0 &amp; <span class="number">0xf</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> String(str);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            logger.error(<span class="string">"生成MD5失败"</span>, e);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h1><p>服务器通过ticket，识别用户。</p>
+<p>服务器密码校验后，会生成一个ticket,这个ticket关联了userid,你登陆过了知道你是谁。这个ticket会发送给客户端。这个ticket会存放在cookie里面，相当于客户端存储ticket。</p>
+<p>以后客户端和服务器进行交互时，都会利用ticket，服务器就知道你是谁了。</p>
+<p><strong>创建login_ticket数据库</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `login_ticket` (</span><br><span class="line">  `id` INT NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `user_id` INT NOT NULL,</span><br><span class="line">  `ticket` VARCHAR(<span class="number">45</span>) NOT NULL,</span><br><span class="line">  &lt;!-- 过期时间 --&gt;</span><br><span class="line">  `expired` DATETIME NOT NULL,</span><br><span class="line">  `status` INT NULL DEFAULT <span class="number">0</span>,</span><br><span class="line">  <span class="function">PRIMARY <span class="title">KEY</span> <span class="params">(`id`)</span>,</span></span><br><span class="line"><span class="function">  UNIQUE INDEX `ticket_UNIQUE` <span class="params">(`ticket` ASC)</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>创建实体类LoginTicket</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.nowcoder.model;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginTicket</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> userId;</span><br><span class="line">    <span class="keyword">private</span> Date expired;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> status;<span class="comment">// 0有效，1无效</span></span><br><span class="line">    <span class="keyword">private</span> String ticket;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getTicket</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ticket;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTicket</span><span class="params">(String ticket)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.ticket = ticket;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getUserId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUserId</span><span class="params">(<span class="keyword">int</span> userId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.userId = userId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Date <span class="title">getExpired</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> expired;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setExpired</span><span class="params">(Date expired)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.expired = expired;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getStatus</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> status;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setStatus</span><span class="params">(<span class="keyword">int</span> status)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.status = status;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>LoginTicketDAO</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.nowcoder.dao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.nowcoder.model.LoginTicket;</span><br><span class="line"><span class="keyword">import</span> com.nowcoder.model.User;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.*;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">LoginTicketDAO</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    String TABLE_NAME = <span class="string">"login_ticket"</span>;</span><br><span class="line">    String INSERT_FIELDS = <span class="string">" user_id, expired, status, ticket "</span>;</span><br><span class="line">    String SELECT_FIELDS = <span class="string">" id, "</span> + INSERT_FIELDS;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Insert</span>(&#123;<span class="string">"insert into "</span>, TABLE_NAME, <span class="string">"("</span>, INSERT_FIELDS,</span><br><span class="line">            <span class="string">") values (#&#123;userId&#125;,#&#123;expired&#125;,#&#123;status&#125;,#&#123;ticket&#125;)"</span>&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">addTicket</span><span class="params">(LoginTicket ticket)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Select</span>(&#123;<span class="string">"select "</span>, SELECT_FIELDS, <span class="string">" from "</span>, TABLE_NAME, <span class="string">" where ticket=#&#123;ticket&#125;"</span>&#125;)</span><br><span class="line">    <span class="function">LoginTicket <span class="title">selectByTicket</span><span class="params">(String ticket)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Update</span>(&#123;<span class="string">"update "</span>, TABLE_NAME, <span class="string">" set status=#&#123;status&#125; where ticket=#&#123;ticket&#125;"</span>&#125;)</span><br><span class="line">    <span class="comment">//在方法参数的前面写上@Param("参数名"),表示给参数命名,名称就是括号中的内容</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">updateStatus</span><span class="params">(@Param(<span class="string">"ticket"</span>)</span> String ticket, @<span class="title">Param</span><span class="params">(<span class="string">"status"</span>)</span> <span class="keyword">int</span> status)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Service层</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(UserService.class);</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserDAO userDAO;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> LoginTicketDAO loginTicketDAO;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/* public void addUser(User user) &#123;</span></span><br><span class="line"><span class="comment">        userDAO.addUser(user);</span></span><br><span class="line"><span class="comment">    &#125;*/</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">register</span><span class="params">(String username, String password)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isBlank(username)) &#123;</span><br><span class="line">            map.put(<span class="string">"msgname"</span>, <span class="string">"用户名不能为空"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isBlank(password)) &#123;</span><br><span class="line">            map.put(<span class="string">"msgpwd"</span>, <span class="string">"密码不能为空"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        User user = userDAO.selectByName(username);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (user != <span class="keyword">null</span>) &#123;</span><br><span class="line">            map.put(<span class="string">"msgname"</span>, <span class="string">"用户名已经被注册"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 密码强度</span></span><br><span class="line">        user = <span class="keyword">new</span> User();</span><br><span class="line">        user.setName(username);</span><br><span class="line">        <span class="comment">//将原有的password+加上生成的salt进行加密</span></span><br><span class="line">        user.setSalt(UUID.randomUUID().toString().substring(<span class="number">0</span>, <span class="number">5</span>));</span><br><span class="line">        String head = String.format(<span class="string">"http://images.nowcoder.com/head/%dt.png"</span>, <span class="keyword">new</span> Random().nextInt(<span class="number">1000</span>));</span><br><span class="line">        user.setHeadUrl(head);</span><br><span class="line">        user.setPassword(ToutiaoUtil.MD5(password+user.getSalt()));</span><br><span class="line">        userDAO.addUser(user);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//登录</span></span><br><span class="line">        String ticket = addLoginTicket(user.getId());</span><br><span class="line">        map.put(<span class="string">"ticket"</span>, ticket);</span><br><span class="line">        <span class="keyword">return</span> map;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">login</span><span class="params">(String username, String password)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isBlank(username)) &#123;</span><br><span class="line">            map.put(<span class="string">"msgname"</span>, <span class="string">"用户名不能为空"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isBlank(password)) &#123;</span><br><span class="line">            map.put(<span class="string">"msgpwd"</span>, <span class="string">"密码不能为空"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        User user = userDAO.selectByName(username);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (user == <span class="keyword">null</span>) &#123;</span><br><span class="line">            map.put(<span class="string">"msgname"</span>, <span class="string">"用户名不存在"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!ToutiaoUtil.MD5(password+user.getSalt()).equals(user.getPassword())) &#123;</span><br><span class="line">            map.put(<span class="string">"msgpwd"</span>, <span class="string">"密码不正确"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//ticket,登录成功</span></span><br><span class="line">        String ticket = addLoginTicket(user.getId());</span><br><span class="line">        map.put(<span class="string">"ticket"</span>, ticket);</span><br><span class="line">        <span class="keyword">return</span> map;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//生成一个ticket</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">addLoginTicket</span><span class="params">(<span class="keyword">int</span> userId)</span> </span>&#123;</span><br><span class="line">        LoginTicket ticket = <span class="keyword">new</span> LoginTicket();</span><br><span class="line">        ticket.setUserId(userId);</span><br><span class="line">        Date date = <span class="keyword">new</span> Date();</span><br><span class="line">        date.setTime(date.getTime() + <span class="number">1000</span>*<span class="number">3600</span>*<span class="number">24</span>);</span><br><span class="line">        ticket.setExpired(date);</span><br><span class="line">        ticket.setStatus(<span class="number">0</span>);</span><br><span class="line">        ticket.setTicket(UUID.randomUUID().toString().replaceAll(<span class="string">"-"</span>, <span class="string">""</span>));</span><br><span class="line">        loginTicketDAO.addTicket(ticket);</span><br><span class="line">        <span class="keyword">return</span> ticket.getTicket();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">getUser</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userDAO.selectById(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Controller层</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginController</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(LoginController.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    UserService userService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(path = &#123;<span class="string">"/reg/"</span>&#125;, method = &#123;RequestMethod.GET, RequestMethod.POST&#125;)</span><br><span class="line">    <span class="comment">//正常返回的是一个页面，注册成功返回一个JSON串</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">reg</span><span class="params">(Model model, @RequestParam(<span class="string">"username"</span>)</span> String username,</span></span><br><span class="line"><span class="function">                      @<span class="title">RequestParam</span><span class="params">(<span class="string">"password"</span>)</span> String password,</span></span><br><span class="line"><span class="function">                      @<span class="title">RequestParam</span><span class="params">(value=<span class="string">"rember"</span>, defaultValue = <span class="string">"0"</span>)</span> <span class="keyword">int</span> rememberme,</span></span><br><span class="line"><span class="function">                      HttpServletResponse response) </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Map&lt;String, Object&gt; map = userService.register(username, password);</span><br><span class="line">            <span class="comment">//map中包含这个ticket，注册成功</span></span><br><span class="line">            <span class="keyword">if</span>(map.containsKey(<span class="string">"ticket"</span>)) &#123;</span><br><span class="line">                <span class="comment">//创建cookie</span></span><br><span class="line">                <span class="comment">//Cookie cookie = new Cookie(String cookieName,String cookieValue);</span></span><br><span class="line">                Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">"ticket"</span>, map.get(<span class="string">"ticket"</span>).toString());</span><br><span class="line">                <span class="comment">//设置cookie是全站有效的</span></span><br><span class="line">                cookie.setPath(<span class="string">"/"</span>);</span><br><span class="line">                <span class="comment">//设置持久化时间，否则关闭浏览器cookie就会被销毁</span></span><br><span class="line">                <span class="keyword">if</span> (rememberme &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    cookie.setMaxAge(<span class="number">3600</span>*<span class="number">24</span>*<span class="number">5</span>);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//向客户端发送cookie</span></span><br><span class="line">                response.addCookie(cookie);</span><br><span class="line">                <span class="keyword">return</span> ToutiaoUtil.getJSONString(<span class="number">0</span>, <span class="string">"注册成功"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> ToutiaoUtil.getJSONString(<span class="number">1</span>, map);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            logger.error(<span class="string">"注册异常"</span> + e.getMessage());</span><br><span class="line">            <span class="keyword">return</span> ToutiaoUtil.getJSONString(<span class="number">1</span>, <span class="string">"注册异常"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(path = &#123;<span class="string">"/login/"</span>&#125;, method = &#123;RequestMethod.GET, RequestMethod.POST&#125;)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">(Model model, @RequestParam(<span class="string">"username"</span>)</span> String username,</span></span><br><span class="line"><span class="function">                      @<span class="title">RequestParam</span><span class="params">(<span class="string">"password"</span>)</span> String password,</span></span><br><span class="line"><span class="function">                      @<span class="title">RequestParam</span><span class="params">(value=<span class="string">"rember"</span>, defaultValue = <span class="string">"0"</span>)</span> <span class="keyword">int</span> rememberme) </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Map&lt;String, Object&gt; map = userService.register(username, password);</span><br><span class="line">            <span class="keyword">if</span>(map.containsKey(<span class="string">"ticket"</span>)) &#123;</span><br><span class="line">                Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">"ticket"</span>, map.get(<span class="string">"ticket"</span>).toString());</span><br><span class="line">                cookie.setPath(<span class="string">"/"</span>);</span><br><span class="line">                <span class="keyword">if</span> (rememberme &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    cookie.setMaxAge(<span class="number">3600</span>*<span class="number">24</span>*<span class="number">5</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> ToutiaoUtil.getJSONString(<span class="number">0</span>, <span class="string">"注册成功"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> ToutiaoUtil.getJSONString(<span class="number">1</span>, map);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            logger.error(<span class="string">"注册异常"</span> + e.getMessage());</span><br><span class="line">            <span class="keyword">return</span> ToutiaoUtil.getJSONString(<span class="number">1</span>, <span class="string">"注册异常"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="登出"><a href="#登出" class="headerlink" title="登出"></a>登出</h1><p>服务端/客户端删除ticket，将status状态设为1即可。</p>
+<p><strong>Service层</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(UserService.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> LoginTicketDAO loginTicketDAO;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//生成一个ticket</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">addLoginTicket</span><span class="params">(<span class="keyword">int</span> userId)</span> </span>&#123;</span><br><span class="line">        LoginTicket ticket = <span class="keyword">new</span> LoginTicket();</span><br><span class="line">        ticket.setUserId(userId);</span><br><span class="line">        Date date = <span class="keyword">new</span> Date();</span><br><span class="line">        date.setTime(date.getTime() + <span class="number">1000</span>*<span class="number">3600</span>*<span class="number">24</span>);</span><br><span class="line">        ticket.setExpired(date);</span><br><span class="line">        ticket.setStatus(<span class="number">0</span>);</span><br><span class="line">        ticket.setTicket(UUID.randomUUID().toString().replaceAll(<span class="string">"-"</span>, <span class="string">""</span>));</span><br><span class="line">        loginTicketDAO.addTicket(ticket);</span><br><span class="line">        <span class="keyword">return</span> ticket.getTicket();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logout</span><span class="params">(String ticket)</span> </span>&#123;</span><br><span class="line">        loginTicketDAO.updateStatus(ticket, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Controller层</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(LoginController.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    UserService userService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(path = &#123;<span class="string">"/logout/"</span>&#125;, method = &#123;RequestMethod.GET, RequestMethod.POST&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">logout</span><span class="params">(@CookieValue(<span class="string">"ticket"</span>)</span> String ticket) </span>&#123;</span><br><span class="line">        userService.logout(ticket);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"redirect:/"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Spring-Boot拦截器的使用–登录验证"><a href="#Spring-Boot拦截器的使用–登录验证" class="headerlink" title="Spring Boot拦截器的使用–登录验证"></a>Spring Boot拦截器的使用–登录验证</h1><p>相关知识：<a href="https://luchen0620.blog.csdn.net/article/details/90476715" target="_blank" rel="noopener">https://luchen0620.blog.csdn.net/article/details/90476715</a></p>
+<p><strong>自定义拦截器PassportInterceptor</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PassportInterceptor</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> LoginTicketDAO loginTicketDAO;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserDAO userDAO;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> HostHolder hostHolder;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//默认ticket为null</span></span><br><span class="line">        String ticket = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">//判断客户端的cookie不为null</span></span><br><span class="line">        <span class="keyword">if</span> (httpServletRequest.getCookies() != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//request获得所有的cookie，并进行遍历</span></span><br><span class="line">            <span class="keyword">for</span> (Cookie cookie : httpServletRequest.getCookies()) &#123;</span><br><span class="line">                <span class="comment">//如果有一个cookie的name我们的是一样的，是我们想要的ticket</span></span><br><span class="line">                <span class="keyword">if</span> (cookie.getName().equals(<span class="string">"ticket"</span>)) &#123;</span><br><span class="line">                    <span class="comment">//这样就能找到那个ticket</span></span><br><span class="line">                    ticket = cookie.getValue();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//ticket不为null，表示用户可能登陆过</span></span><br><span class="line">        <span class="comment">//不能完全相信ticket，也可能是伪造的，要先去查一下</span></span><br><span class="line">        <span class="keyword">if</span> (ticket != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//验证ticket的有效性</span></span><br><span class="line">            LoginTicket loginTicket = loginTicketDAO.selectByTicket(ticket);</span><br><span class="line">            <span class="keyword">if</span> (loginTicket == <span class="keyword">null</span> || loginTicket.getExpired().before(<span class="keyword">new</span> Date()) || loginTicket.getStatus() != <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//我已经知道你是谁了，但是这是在进入Controller之前调用的</span></span><br><span class="line">            <span class="comment">//如果希望在进入Controller之后还想引用你的这些信息，那就需要把你给记下来</span></span><br><span class="line">            <span class="comment">//否则到了Controller之后，不知道你是谁，又要重新再做一遍</span></span><br><span class="line">            User user = userDAO.selectById(loginTicket.getUserId());</span><br><span class="line">            hostHolder.setUser(user);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (modelAndView != <span class="keyword">null</span> &amp;&amp; hostHolder.getUser() != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//通过拦截器在视图解析和渲染之前，把当前访问呢用户存储进来</span></span><br><span class="line">            <span class="comment">//则在前端就知道用户是否存在</span></span><br><span class="line">            modelAndView.addObject(<span class="string">"user"</span>, hostHolder.getUser());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        hostHolder.clear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注册拦截器</strong></p>
+<p>实现WebMvcConfigurer 接口中的 addInterceptors（）添加自定义的拦截器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.nowcoder.configuration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.nowcoder.interceptor.PassportInterceptor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.InterceptorRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="comment">//把写好的拦截器注册到MVC里面</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ToutiaoWebConfiguration</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    PassportInterceptor passportInterceptor;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line">        registry.addInterceptor(passportInterceptor);</span><br><span class="line">        <span class="keyword">super</span>.addInterceptors(registry);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>HostHolder</strong>用来存储当前访问的用户</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.nowcoder.model;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="comment">//HostHolder用来存这个用户的，users.set()，</span></span><br><span class="line"><span class="comment">//通过users.get()方式提取出来</span></span><br><span class="line"><span class="comment">// 使用ThreadLocal，表示当前访问的用户是谁</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HostHolder</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ThreadLocal&lt;User&gt; users = <span class="keyword">new</span> ThreadLocal&lt;User&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">getUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> users.get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUser</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">        users.set(user);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        users.remove();;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="链路回调思想"><a href="#链路回调思想" class="headerlink" title="链路回调思想"></a>链路回调思想</h2><p>你请求给我，在所有的链路之前先看一下你是谁，知道你之后，就把信息放到一个大家都能访问到的地方HostHolder ，整个链路过来以后，如果想访问就访问HostHolder 。整个链路走完以后，把这个清掉。</p>
+<p>参考：<a href="https://blog.csdn.net/qq_31617121/article/details/79134042" target="_blank" rel="noopener">https://blog.csdn.net/qq_31617121/article/details/79134042</a></p>
+<p><strong>一、可以知道用户是这个用户。</strong> </p>
+<p>注册成功后会进行自动登陆，对于登陆，在登陆操作中，在service层，进行逻辑判断，对上返回状态回到controller，对下dao去和数据库交互。在service登陆代码中，服务器会生成一个string类型的ticket，存入cookie中，key值是ticket，value值是ticket的值。通过response下发到浏览器。 </p>
+<p>下次在已经登陆的用户，进行其他点击后。在进入controller前，调用preHandle方法处理，它可以检查客户端提交的cookie中是否有服务器之前下发的ticket，如果有证明这个请求是已经登陆的用户了。把登陆的用户放到线程本地变量。在此时才进入controller，可以拿到具体的用户HostHolder类，这是线程本地变量，可以根据登陆的用户进行个性化渲染，比如关注用户的动态，个人收藏等。</p>
+<p><strong>二、可以进行权限管理</strong> </p>
+<p>比如，在浏览某些页面时，要保证用户登陆，或者用户是某个等级的。可以现在preHandler中判断，这个可以在设置一个特定范围的拦截器，如下的拦截器LoginRequiredInterceptor，在访问setting页面时才会进入到该拦截器，如果验证没有HostHolder，说明用户没登陆，就跳转到主页或者给出登陆页面。拦截器也先后执行顺序。在配置类中ToutiaoWebConfiguration中先后决定。</p>
+<p><strong>三、可以自动登陆</strong> </p>
+<p>我们平时在浏览网页的时候会碰到这样的情况，昨天登陆了某个网站，关机，第二天再登陆，自动跳转到我的用户了。这里是服务器会把浏览器的sessionId和服务器的数据库关联，在提交请求的时候服务器会设置拦截器去找sessionId，如果这个sessionId和我服务器上的ticket关联了起来，并且设置的过期时间没有过期，那在登陆主页前我就可以知道是某个用户，在controller层中可以进行渲染。 可以做到自动登陆的功能。</p>
+<h1 id="未登录跳转–权限验证"><a href="#未登录跳转–权限验证" class="headerlink" title="未登录跳转–权限验证"></a>未登录跳转–权限验证</h1><p>如果用户没有登录，则不能访问<a href="http://localhost:8080/setting这个页面，跳转到首页去。" target="_blank" rel="noopener">http://localhost:8080/setting这个页面，跳转到首页去。</a></p>
+<p>通过登陆验证看HostHolder类中有没有线程本地变量user类，如果有，就知道是谁登陆的。如果没有，那没有权限访问/setting*相关的页面。通过PassportInterceptor的PreHandler()方法后，进入LoginRequiredInterceptor的PreHandler()方法，如果没有拿到user类，返回false。不能进入controller层，重定向到首页，并且约定pop=1，弹出登陆框。</p>
+<p><strong>创建登录拦截器LoginRequiredInterceptor</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginRequiredInterceptor</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> HostHolder hostHolder;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (hostHolder.getUser() == <span class="keyword">null</span>) &#123;</span><br><span class="line">            httpServletResponse.sendRedirect(<span class="string">"/?pop=1"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注册登录拦截器</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="comment">//把写好的拦截器注册到MVC里面</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ToutiaoWebConfiguration</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    PassportInterceptor passportInterceptor;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    LoginRequiredInterceptor loginRequiredInterceptor;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line">        registry.addInterceptor(passportInterceptor);</span><br><span class="line">        registry.addInterceptor(loginRequiredInterceptor).addPathPatterns(<span class="string">"/setting*"</span>);</span><br><span class="line">        <span class="keyword">super</span>.addInterceptors(registry);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>访问跳转</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(path = &#123;<span class="string">"/"</span>, <span class="string">"/index"</span>&#125;, method = &#123;RequestMethod.GET, RequestMethod.POST&#125;)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">index</span><span class="params">(Model model,</span></span></span><br><span class="line"><span class="function"><span class="params">                    @RequestParam(value = <span class="string">"pop"</span>, defaultValue = <span class="string">"0"</span>)</span> <span class="keyword">int</span> pop) </span>&#123;</span><br><span class="line">    model.addAttribute(<span class="string">"vos"</span>, getNews(<span class="number">0</span>, <span class="number">0</span>, <span class="number">10</span>));</span><br><span class="line">    model.addAttribute(<span class="string">"pop"</span>, pop);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"home"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="AJAX-异步数据交互"><a href="#AJAX-异步数据交互" class="headerlink" title="AJAX:异步数据交互"></a>AJAX:异步数据交互</h1><ol>
+<li>页面不刷新 </li>
+<li>体验更好 </li>
+<li>传输数据更少 </li>
+<li>APP/网站通用 </li>
+</ol>
+<p>评论有很多页，选择一页的时候，页面不刷新，URL不变，只返回变化的数据信息。</p>
+<h1 id="Spring-Boot-Developer-Tools"><a href="#Spring-Boot-Developer-Tools" class="headerlink" title="Spring Boot Developer Tools"></a>Spring Boot Developer Tools</h1><p>spring为开发者提供了一个名为spring-boot-devtools的模块来使Spring Boot应用支持热部署，<strong>提高开发者的开发效率，无需手动重启Spring Boot应用。</strong></p>
+<p><strong>动态加载更新的class</strong></p>
+<p><strong>编译加载修改的静态文件</strong></p>
+<p><img src="//www.freeneasy.top/2019/05/23/NowCoder3/1.png" alt="img"></p>
+<p><strong>pom.xml引入</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+	
+	<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/05/23/NowCoder3/">牛客网中级项目（三）</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 freeNeasy 的个人博客">freeNeasy</a></p>
+  <p><span>发布时间:</span>2019年05月23日 - 21:05</p>
+  <p><span>最后更新:</span>2019年05月23日 - 22:05</p>
+  <p><span>原始链接:</span><a href="/2019/05/23/NowCoder3/" title="牛客网中级项目（三）">http://www.freeneasy.top/2019/05/23/NowCoder3/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.freeneasy.top/2019/05/23/NowCoder3/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+	</div>
+	
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="freeNeasy 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.png" alt="freeNeasy 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/devtools/" rel="tag"><strong><i class="fa fa-tag"></i></strong> devtools</a>
+          
+            <a href="/tags/链路回调/" rel="tag"><strong><i class="fa fa-tag"></i></strong> 链路回调</a>
+          
+            <a href="/tags/Interceptor/" rel="tag"><strong><i class="fa fa-tag"></i></strong> Interceptor</a>
+          
+            <a href="/tags/AJAX/" rel="tag"><strong><i class="fa fa-tag"></i></strong> AJAX</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/21/Model/" rel="next" title="Spring中Model、ModelMap及ModelAndView详解">
+                <i class="fa fa-chevron-left"></i> Spring中Model、ModelMap及ModelAndView详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/header.jpg" alt="freeNeasy">
+            
+              <p class="site-author-name" itemprop="name">freeNeasy</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://luchen0620.blog.csdn.net/" title="CSDN &rarr; https://luchen0620.blog.csdn.net/" rel="noopener" target="_blank"><i class="fa fa-fw fa-book"></i>CSDN</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/freeNeasy-lc" title="GitHub &rarr; https://github.com/freeNeasy-lc" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.baidu.com/?tn=62095104_2_oem_dg" title="https://www.baidu.com/?tn=62095104_2_oem_dg" rel="noopener" target="_blank">百度</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.google.com.hk/webhp?hl=en&sa=X&ved=0ahUKEwirjc_75YXfAhXMXrwKHUHyB-cQPAgH" title="https://www.google.com.hk/webhp?hl=en&sa=X&ved=0ahUKEwirjc_75YXfAhXMXrwKHUHyB-cQPAgH" rel="noopener" target="_blank">谷歌</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.zhihu.com/hot" title="https://www.zhihu.com/hot" rel="noopener" target="_blank">知乎</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#注册"><span class="nav-number">1.</span> <span class="nav-text">注册</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#登录"><span class="nav-number">2.</span> <span class="nav-text">登录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#登出"><span class="nav-number">3.</span> <span class="nav-text">登出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Boot拦截器的使用–登录验证"><span class="nav-number">4.</span> <span class="nav-text">Spring Boot拦截器的使用–登录验证</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#链路回调思想"><span class="nav-number">4.1.</span> <span class="nav-text">链路回调思想</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#未登录跳转–权限验证"><span class="nav-number">5.</span> <span class="nav-text">未登录跳转–权限验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AJAX-异步数据交互"><span class="nav-number">6.</span> <span class="nav-text">AJAX:异步数据交互</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Boot-Developer-Tools"><span class="nav-number">7.</span> <span class="nav-text">Spring Boot Developer Tools</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">freeNeasy</span>
+
+  
+
+  
+</div>
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共14.4k字</span>
+</div>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.1"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'xCR7zgB1l0a9IaT7KRymWSJo-gzGzoHsz',
+    appKey: 'G4sY4I5S7k9qkshxXOEdJGkQ',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
